@@ -16,7 +16,8 @@
 				<forward name="failure" path="/jsp/failure.jsp"/>
 				<forward name="eventList" path="/jsp/Events.jsp"/>
 				<forward name="addNewEvent" path="/jsp/AddNewEvent.jsp"/>
-				<forward name="AlumniList" path="/jsp/AlumniList.jsp"/>
+				<forward name="alumniList" path="/jsp/AlumniList.jsp"/>
+				<forward name="addNewAlumni" path="/jsp/AddNewAlumni.jsp"/>
 				
 			</action>
 		</action-mappings>

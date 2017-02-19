@@ -31,6 +31,13 @@ public class AluminiMgntAction extends Action {
     	String action = request.getParameter("action");
     	    	
        	if(action != null){
+       		try{
+       			dbDconn = new DbConnection();
+        		conn = (Connection)dbDconn.getConnection();
+       		}catch(Exception ex){
+       			ex.printStackTrace();
+       		}
+       		
        		if(action.equalsIgnoreCase("home")){
        			Calendar c = new GregorianCalendar();
        			c.set(Calendar.HOUR_OF_DAY, 0);
@@ -65,7 +72,6 @@ public class AluminiMgntAction extends Action {
     		}
     		if("addNewEvent".equalsIgnoreCase(action)){
         		return mapping.findForward("addNewEvent");
-
     		}
     		if("saveEvent".equalsIgnoreCase(action)){
         		String query = "select * from Events order by time desc";
@@ -73,11 +79,21 @@ public class AluminiMgntAction extends Action {
     			request.setAttribute("events", events);
         		return mapping.findForward("eventList");
     		}
+    		if("addNewAlumni".equalsIgnoreCase(action)){
+        		return mapping.findForward("addNewAlumni");
+    		}
+    		if("saveAlumni".equalsIgnoreCase(action)){
+        		String query = "select * from Alumni";
+    			ArrayList<HashMap> alumniList = getEvents(query);
+    			request.setAttribute("alumniList", alumniList);
+        		return mapping.findForward("alumniList");
+    		}
+    		
     		if("getalumnilist".equalsIgnoreCase(action)){
-        		String query = "select * from AlumniList";
-    			ArrayList<HashMap> events = getAlumniList(query);
-    			request.setAttribute("events", events);
-        		return mapping.findForward("eventList");
+        		String query = "select * from Alumni";
+    			ArrayList<HashMap> alumniList = getAlumniList(query);
+    			request.setAttribute("alumniList", alumniList);
+        		return mapping.findForward("alumniList");
 
     		}
     	}
@@ -90,8 +106,7 @@ public class AluminiMgntAction extends Action {
     	ArrayList<HashMap> events = new ArrayList<HashMap>();
 
     	try{
-    		dbDconn = new DbConnection();
-    		conn = (Connection)dbDconn.getConnection();
+    		
 
     		if(conn != null){
     			st = conn.createStatement();
@@ -133,16 +148,14 @@ public class AluminiMgntAction extends Action {
     	
     	ArrayList<HashMap> announcement = new ArrayList<HashMap>();
     	try{
-    		dbDconn = new DbConnection();
-    		conn = (Connection)dbDconn.getConnection();
-
+    		
     		if(conn != null){
     			st = conn.createStatement();
     			res = st.executeQuery(query); 
     		}
     		while(res.next()){
     			HashMap row = new HashMap();
-    			int id  = res.getInt("id");
+    			Long id  = res.getLong("id");
     			String title = res.getString("message");
     			
     			row.put("id", id);
@@ -166,6 +179,57 @@ public class AluminiMgntAction extends Action {
     	
     }
     private ArrayList<HashMap> getAlumniList(String query){
-    	return null;
+
+    	
+    	ArrayList<HashMap> alumniList = new ArrayList<HashMap>();
+    	try{
+
+    		if(conn != null){
+    			st = conn.createStatement();
+    			res = st.executeQuery(query); 
+    		}
+    		while(res.next()){
+    			HashMap row = new HashMap();
+    			int id  = res.getInt("id");
+    			String name = res.getString("name");
+    			long dob = res.getLong("dob");
+    			Date dobDate = new Date(dob);
+    			String dobStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS").format(dobDate);
+    			long batchyear = res.getLong("batchyear");
+    			long passoutyear = res.getLong("passoutyear");
+    			String degree = res.getString("degree");
+    			String currentposition = res.getString("currentposition");
+    			long mobilenumber = res.getLong("mobilenumber");
+    			String email = res.getString("email");
+
+
+    			row.put("id", id);
+    			row.put("name", name);
+    			row.put("dobStr", dobStr);
+    			row.put("batchyear", batchyear);
+    			row.put("passoutyear", passoutyear);
+    			row.put("degree", degree);
+    			row.put("currentposition", currentposition);
+    			row.put("mobilenumber", mobilenumber);
+    			row.put("email", email);
+    			
+    			alumniList.add(row);
+    			System.out.println("AlumniList"+alumniList);
+    		}
+    	}catch(Exception ex){
+
+    	}finally{
+    		try {
+    			res.close();
+    			st.close();
+    			conn.close();
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	}
+    	return alumniList;
+    	
+    
     }
 }
