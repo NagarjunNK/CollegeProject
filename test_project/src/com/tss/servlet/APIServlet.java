@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.tss.db.*;
 import com.tss.general.ApplicationConfiguration;
@@ -60,6 +61,9 @@ public class APIServlet extends HttpServlet {
 		try {
 			pout = response.getWriter();
 			if(res.next()){
+				HttpSession session = request.getSession(true);
+				session.setAttribute("UserName", username);
+				session.setAttribute("UserType", "Admin");
 				pout.print("success"); //NO OUTPUTENCODING
 			}else{
 				pout.print("failure"); //NO OUTPUTENCODING

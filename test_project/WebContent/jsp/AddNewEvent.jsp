@@ -34,9 +34,9 @@ $("#event-form").on("submit", function(){
             <input type="date" name="date" id="date" value="" size="22" required>
           </div>
           <div>
-            <input type="submit" name="submit" value="Submit Form">
+            <input type="submit" name="submit" value="Save">
             &nbsp;
-            <input type="reset" name="reset" value="Reset Form">
+            <input type="reset" name="reset" value="Reset">
           </div>
         </form>
 </div>

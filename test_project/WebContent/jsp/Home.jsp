@@ -95,10 +95,10 @@ function login() {
 				type : "GET",
 				success : function(data) {
 					if (data == "success") {
+						window.location.reload();
 						document.getElementById('id02').style.display = 'none';
 						document.getElementById('id03').style.display = 'block';
 					} else {
-						console.log(data);
 						document.getElementById('alert').style.display = 'block';
 					}
 				}
@@ -114,7 +114,7 @@ function resetForm(){
 
 }
 	</script>
-<!-- 	<div id="id01" class="w3-modal">
+	<div id="id01" class="w3-modal">
 						<div class="w3-modal-content w3-card-8 w3-animate-zoom"	style="max-width: 600px">
 							<div class="w3-center">
 								<br> <span	onclick="resetForm()"	class="w3-closebtn w3-hover-red w3-container w3-padding-8 w3-display-topright"	title="Close Modal">&times;</span>
@@ -143,7 +143,7 @@ function resetForm(){
 								</div>
 							</div>
 						</div>
-					</div>  -->
+					</div>  
 					
 <script>
 		// Get the modal
@@ -169,6 +169,9 @@ function resetForm(){
     </div>
   </header>
 </div>
+<%=request.getSession().getAttribute("UserName") %>
+<%=request.getSession().getAttribute("UserType") %>
+
 <div class="wrapper row2">
   <nav id="mainav" class="hoc clear"> 
     <ul class="clear">
