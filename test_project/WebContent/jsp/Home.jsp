@@ -11,7 +11,7 @@
 <script src="layout/scripts/jquery.mobilemenu.js"></script>
 <script src="layout/scripts/jquery.flexslider-min.js"></script>
 <%@ page import="java.util.*" %>
-<!--  link rel="stylesheet" href="resources/w3.css">-->
+<link rel="stylesheet" href="resources/w3.css">
 <style>
 blockquote {
     font-family: Georgia, serif;
@@ -157,23 +157,22 @@ function resetForm(){
 		}
 </script>
 <div class="wrapper row1">
-  <header id="header" class="hoc clear"> 
-    <div id="logo" class="fl_left">
-      <h1><a href="index.html">Alumni Management System</a></h1>
+  <header id="header" class="hoc clear" > 
+    <div id="logo"  style="text-align:center;">
+    <h1><a href="/AluminiMgnt/home.do?action=home">MADURAI KAMARAJ UNIVERSITY</a></h1>
+    <h1><a href="/AluminiMgnt/home.do?action=home">DEPARTMENT OF COMPUTER SCIENCE</a></h1>
+      <h1><a href="/AluminiMgnt/home.do?action=home">ALUMNI INFORMATION MANAGEMENT SYSTEM</a></h1>
     </div>
-    <div id="quickinfo" class="fl_right">
+   <!--  <div id="quickinfo" class="fl_right">
       <ul class="nospace inline">
         <li><strong><a onclick="document.getElementById('id01').style.display='block'">Login</a></strong></li>|
         <li style="margin-left:50px;"><strong><a>Register</a></strong></li>
       </ul>
-    </div>
+    </div> -->
   </header>
 </div>
-<%=request.getSession().getAttribute("UserName") %>
-<%=request.getSession().getAttribute("UserType") %>
-
 <div class="wrapper row2">
-  <nav id="mainav" class="hoc clear"> 
+  <nav id="mainav" class="hoc clear" style="display: block;text-align: center;"> 
     <ul class="clear">
       <li id="home" class="active"><a href="/AluminiMgnt/home.do?action=home">Home</a></li>
       <li id="aboutus"><a>About Us</a></li>
@@ -181,6 +180,7 @@ function resetForm(){
       <li id="alumni"><a>Alumni</a></li>
       <li id="event"><a>Events</a></li>
       <li id="galleries"><a>Gallery</a></li>
+      <li id="login"><a onclick="document.getElementById('id01').style.display='block'">Login</a></li>
     </ul>
 
   </nav>
@@ -188,7 +188,7 @@ function resetForm(){
 <div id="galleryDiv">
 </div>
 <div id="contentSection">
-<div class="wrapper bgded" style="background-image:url('images/demo/backgrounds/mkuniv.jpg');">
+<div class="wrapper bgded" style="background-image:url('images/demo/backgrounds/02.png');">
   <div id="pageintro" class="hoc clear"> 
     <div class="flexslider basicslider">
       <ul class="slides">
@@ -217,16 +217,18 @@ function resetForm(){
     </div>
   </div>
 </div>
-<div class="wrapper bgded overlay" style="background-image:url('images/demo/backgrounds/02.png');">
+<div class="wrapper bgded overlay"  style="background-color: black;">
   <main class="hoc container clear"> 
-	  <h6 class="heading">Welcome Message..!!</h6>
-          <p>Welcome message to student and alumini from Alumni association.[&hellip;]</p>
-          <footer><a class="btn" href="#">Read More &raquo;</a></footer>
+	  <h6 class="heading">Welcome Alumni..!!</h6>
+          <p>At MKU [DCS], we belive in fostering a strong alumni network that not anly helps former students remain connected but also provide an a venue for the philanthropic spirit of successful alumni.</p>
+          <!-- <footer><a class="btn" href="#">Read More &raquo;</a></footer> -->
     	  <div class="clear"></div>
   </main>
 </div>
 <div class="wrapper row3">
-  <section class="hoc container clear"> 
+<table><tr><td width:33.33%>
+
+  <section class="container clear" style="display:block;"> 
     <div class="sectiontitle">
       <h6 class="heading">Today's Events</h6>
     </div>
@@ -259,15 +261,21 @@ function resetForm(){
     </div>
 
   </section>
-</div>
-<div class="wrapper bgded overlay light" style="background-color: grey;">
+</td>
+<td width:33.33%>
   <section class="hoc container clear"> 
     <div class="sectiontitle">
       <h6 class="heading">News & Announcement</h6>
     </div>
     <div class="group testimonials">
 	      <div class="one_half first">
-       <marquee direction="up" scrollamount="2">
+      <p><strong>News & Announcement</strong></p>
+        <p>Alumni association will make many decisions that impact the members of the assocation.</p>
+        <p class="btmspace-30">So, this announcement will be made public in this forum.</p>
+        <footer><a class="btn" href="#">Read More &raquo;</a></footer>
+	</div>
+	      <div class="one_half">
+ <marquee direction="up" scrollamount="2">
 			<ul>
 				<%
 			ArrayList announcements = (ArrayList)request.getAttribute("announcements");
@@ -284,20 +292,14 @@ function resetForm(){
 			<%} %>
 			</ul>
 	</marquee>
-	</div>
-	      <div class="one_half">
 
-
-        <p><strong>News & Announcement</strong></p>
-        <p>Alumni association will make many decisions that impact the members of the assocation.</p>
-        <p class="btmspace-30">So, this announcement will be made public in this forum.</p>
-        <footer><a class="btn" href="#">Read More &raquo;</a></footer>
+        
 	</div>
     </div>
   </section>
-</div>
-<div class="wrapper row3">
-  <section class="hoc container clear"> 
+</td>
+<td width:33.33%>
+<section class="hoc container clear"> 
     <div class="sectiontitle">
       <h6 class="heading">Quote of the day</h6>
     </div>
@@ -313,7 +315,9 @@ function resetForm(){
 </div>
     <div class="clear"></div>
   </section>
+</td></tr></table>
 </div>
+
 </div>
 <div class="wrapper row4 bgded overlay" style="background-color: black;">
   <footer id="footer" class="hoc clear"> 
