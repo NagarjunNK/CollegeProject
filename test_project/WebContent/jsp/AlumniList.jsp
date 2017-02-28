@@ -23,6 +23,33 @@
 		});
 
 	} );
+	function editAlumni(ele){
+		var id = jQuery(ele).attr('value');
+		var url = '/AluminiMgnt/alumni.do?action=editAlumni'+'&id='+id;
+		jQuery.ajax(url, {
+		      success: function(data) {
+			jQuery('#AlumniListSection').html(data);
+		      },
+		      error: function() {
+		    	  console.log("error");
+		      }
+		   });
+	}
+	function deleteAlumni(ele){
+		if(confirm("Are you sure?")){
+			var id = jQuery(ele).attr('value');
+			var url = '/AluminiMgnt/alumni.do?action=deleteAlumni'+'&id='+id;
+			jQuery.ajax(url, {
+			      success: function(data) {
+				jQuery('#contentSection').html(data);
+			      },
+			      error: function() {
+			    	  console.log("error");
+			      }
+			   });
+		}
+		return false;
+	}
 	</script>
 	<div class="wrapper bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');">
 	  <section id="breadcrumb" class="hoc clear"> 
@@ -58,9 +85,10 @@
 		   if(alumnilist != null && !alumnilist.isEmpty()){
 			   for(int i=0; i<alumnilist.size(); i++){
 				   HashMap row = (HashMap)alumnilist.get(i);
+				   int id = (int)row.get("id");
 				   String name = (String)row.get("name");
-				   long batchyear = (long)row.get("batchyear");
-				   long passoutyear = (long)row.get("passoutyear");
+				   String batchyear = (String)row.get("batchyear");
+				   String passoutyear = (String)row.get("passoutyear");
 				   String dobStr = (String)row.get("dobStr");
 				   String degree = (String)row.get("degree");
 				   String currentposition = (String)row.get("currentposition");
@@ -70,8 +98,8 @@
 				   %>
 				   
 			<tr>
-		       <td><a href="#"><img src="images/edit.png" style="height:17px;width:25px;"></a></td>
-		       <td><a href="#"><img src="images/delete.png" style="height:17px;width:25px;"></a></td>
+		       <td><a onClick="javascript:editAlumni(this);" value="<%=id %>"><img src="images/edit.png" style="height:17px;width:25px;"></a></td>
+		       <td><a onClick="javascript:deleteAlumni(this);" value="<%=id %>"><img src="images/delete.png" style="height:17px;width:25px;"></a></td>
 		      <td><a href="#"><%=name %></a></td>
 		      <td><%=batchyear %></td>
 		      <td><%=passoutyear %></td>

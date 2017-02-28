@@ -1,3 +1,4 @@
+<%@ page import="java.util.*" %>
 <script>
 $("#event-form").on("submit", function(){
 	var data = jQuery('#event-form').serialize();
@@ -13,10 +14,31 @@ $("#event-form").on("submit", function(){
 	   });
 	   return false;
 	 });
+<%
+ArrayList event = (ArrayList)request.getAttribute("event");
+if(event != null && !event.isEmpty()){
+	for(int i=0; i<event.size(); i++){
+		   HashMap row = (HashMap)event.get(i);
+		   int id = (int)row.get("id");
+		   String title = (String)row.get("title");
+		   String desc = (String)row.get("description");
+		   String place = (String)row.get("place");
+		   String time = (String)row.get("time");
+%>
+jQuery(document).ready(function(){
+	jQuery('#eventid').val('<%=id%>');
+	jQuery('#name').val('<%=title%>');
+	jQuery('#desc').val('<%=desc%>');
+	jQuery('#place').val('<%=place%>');
+	jQuery('#date').val('<%=time%>');
+});
+<%}
+}%>
 </script>
 <div class="form-sec">
 <h2>Add New Event</h2>
         <form id="event-form"  method="post">
+        	<input type="hidden" name="eventid" id="eventid" value="">
           <div class="block clear first">
             <label for="name">Title <span>*</span></label>
             <input type="text" name="name" id="name" value="" size="22" required>

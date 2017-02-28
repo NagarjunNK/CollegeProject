@@ -21,8 +21,36 @@
 			      }
 			   });
 		});
-
+	 
 	} );
+	
+	function editEvent(ele){
+		var id = jQuery(ele).attr('value');
+		var url = '/AluminiMgnt/alumni.do?action=editEvent'+'&id='+id;
+		jQuery.ajax(url, {
+		      success: function(data) {
+			jQuery('#EventSection').html(data);
+		      },
+		      error: function() {
+		    	  console.log("error");
+		      }
+		   });
+	}
+	function deleteEvent(ele){
+		if(confirm("Are you sure?")){
+			var id = jQuery(ele).attr('value');
+			var url = '/AluminiMgnt/alumni.do?action=deleteEvent'+'&id='+id;
+			jQuery.ajax(url, {
+			      success: function(data) {
+				jQuery('#contentSection').html(data);
+			      },
+			      error: function() {
+			    	  console.log("error");
+			      }
+			   });
+		}
+		return false;
+	}
 	</script>
 	<div class="wrapper bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');">
 	  <section id="breadcrumb" class="hoc clear"> 
@@ -45,7 +73,7 @@
 		      <th>Title</th>
 		      <th>Description</th>
 		      <th>Place</th>
-		      <th>Time</th>
+		      <th>Date</th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -54,14 +82,15 @@
 		   if(events != null && !events.isEmpty()){
 			   for(int i=0; i<events.size(); i++){
 				   HashMap row = (HashMap)events.get(i);
+				   int id = (int)row.get("id");
 				   String title = (String)row.get("title");
 				   String desc = (String)row.get("description");
 				   String place = (String)row.get("place");
 				   String time = (String)row.get("time"); %>
 				   
 			<tr>
-		       <td><a href="#"><img src="images/edit.png" style="height:17px;width:25px;"></a></td>
-		       <td><a href="#"><img src="images/delete.png" style="height:17px;width:25px;"></a></td>
+		       <td><a onClick="javascript:editEvent(this);" value="<%=id %>"><img src="images/edit.png" style="height:17px;width:25px;" ></a></td>
+		       <td><a onClick="javascript:deleteEvent(this);" value="<%=id %>"><img src="images/delete.png" style="height:17px;width:25px;" ></a></td>
 		      <td><a href="#"><%=title %></a></td>
 		      <td><%=desc %></td>
 		      <td><%=place %></td>

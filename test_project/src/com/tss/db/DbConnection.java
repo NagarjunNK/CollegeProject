@@ -2,7 +2,6 @@
 package com.tss.db;
 import java.sql.*;
 
-import javax.sql.*;
 
 import com.tss.general.ApplicationConfiguration;
 
