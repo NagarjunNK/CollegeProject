@@ -62,7 +62,7 @@
 	</div>
 	<div class="wrapper row3">
 	  <main class="hoc container clear" id="AlumniListSection"> 
-		<div style="width:100%;padding-bottom:60px;" id="AddNewAlumni"><h1>Alumni</h1><a style="float:right;" class="btn" href="#">Add Alumni</a></div>
+		<div style="width:100%;padding-bottom:60px;" ><h1>Alumni</h1><a style="float:right;" class="btn"  id="AddNewAlumni">Add Alumni</a></div>
 		<div class="scrollable">
 		<table id="alumniList" >
 		  <thead>
