@@ -113,12 +113,13 @@ function resetForm(){
 	$("input[name='password']").val('');
 
 }
+
 	</script>
 	<div id="id01" class="w3-modal">
 						<div class="w3-modal-content w3-card-8 w3-animate-zoom"	style="max-width: 600px">
 							<div class="w3-center">
 								<br> <span	onclick="resetForm()"	class="w3-closebtn w3-hover-red w3-container w3-padding-8 w3-display-topright"	title="Close Modal">&times;</span>
-								<h2>LOGIN</h2>
+								<h2>Login</h2>
 							</div>
 							<div id="id02">
 								<form id="loginForm" class="w3-container">
@@ -128,12 +129,12 @@ function resetForm(){
 											<label><b>Password</b></label> <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>
 										</div>
 										<div id="alert" class="w3-red" style="display:none;"><h6>Invalid Login!</h6></div>
-										<button class="w3-btn-block w3-green w3-section w3-padding"	type="button" onclick="login()">Login</button>
+										<div class="w3-center">
+										<button class="w3-btn w3-orange w3-section w3-padding"	type="button" onclick="login()">Login</button>
+										<button	onclick="document.getElementById('id01').style.display='none'"	type="button" class="w3-btn w3-grey w3-text-white">Cancel</button>
+										</div>
 									</div>
 								</form>
-								<div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-									<button	onclick="document.getElementById('id01').style.display='none'"	type="button" class="w3-btn w3-red">Cancel</button>
-								</div>
 							</div>
 							<div id="id03" style="display: none;">
 								<div class="w3-panel w3-green">
@@ -171,12 +172,23 @@ function resetForm(){
     </div> -->
   </header>
 </div>
+
 <div class="wrapper row2">
   <nav id="mainav" class="hoc clear" style="display: block;text-align: center;"> 
     <ul class="clear">
       <li id="home" class="active"><a href="/AluminiMgnt/home.do?action=home">Home</a></li>
-      <li id="aboutus"><a>About Us</a></li>
-      <li id="admin"><a>Administration</a></li>
+      <li id="aboutus"><a class="drop" href="#">About Us</a>
+      	<ul>
+              <li><a href="#">Department</a>
+              		<ul>
+              			<li><a href="#">History</a></li>
+              			<li><a href="#">Administration</a></li>
+            		</ul>
+              </li>
+              <li><a href="#">Mission & Goals</a></li>
+              <li><a href="#">Alumni Services</a></li>
+         </ul>
+      </li>
       <li id="alumni"><a>Alumni</a></li>
       <li id="event"><a>Events</a></li>
       <li id="galleries"><a>Gallery</a></li>
@@ -188,13 +200,14 @@ function resetForm(){
 <div id="galleryDiv">
 </div>
 <div id="contentSection">
-<div class="wrapper bgded" style="background-image:url('images/demo/backgrounds/02.png');">
+<div class="wrapper bgded" style="background-image:url('images/demo/backgrounds/mkuniv2.jpg');">
   <div id="pageintro" class="hoc clear"> 
     <div class="flexslider basicslider">
       <ul class="slides">
         <li>
           <article>
-            <h3 class="heading">Lorem vulputate diam eget sagittis</h3>
+          
+            <h3 class="heading" style="background-image:url('images/gallery/20151127_065417.jpg');">Lorem vulputate diam eget sagittis</h3>
             <p>Vivamus in ligula ut risus bibendum aenean purus enim euismod nec scelerisque a fringilla et mauris.</p>
             <footer><a class="btn" href="#">Molestie mauris</a></footer>
           </article>
@@ -230,30 +243,28 @@ function resetForm(){
 
   <section class="container clear" style="display:block;"> 
     <div class="sectiontitle">
-      <h6 class="heading">Today's Events</h6>
+      <h6 class="heading">Today's Birthday</h6>
     </div>
     <div class="group">
       <div class="one_half first">
-        <p><strong>Events & Programs</strong></p>
-        <p>Alumni association conduct events often have get together, or knowledge sharing with junior students.</p>
-        <p class="btmspace-30">This events will be of more of help to all students and to make use oppurtunity to meet old friends.</p>
-        <footer><a class="btn" href="#">Read More &raquo;</a></footer>
+        <p><strong>Today Birthday</strong></p>
+        <p>BirthDay is the day to remember that time is flying, there is lot to learn</p>
       </div>
       <div class="one_half">
 		<marquee direction="up" scrollamount="2">
 			<ul>
 			<%
-			ArrayList events = (ArrayList)request.getAttribute("events");
-           if(events != null && !events.isEmpty()){
-        	   for(int i=0; i<events.size(); i++){
-        		   HashMap row = (HashMap)events.get(i);
-        		   String title = (String)row.get("title");
+			ArrayList birthday = (ArrayList)request.getAttribute("birthday");
+           if(birthday != null && !birthday.isEmpty()){
+        	   for(int i=0; i<birthday.size(); i++){
+        		   HashMap row = (HashMap)birthday.get(i);
+        		   String name = (String)row.get("name");
         		    %>
-				<li><%=title %></li>
+				<li><%=name %></li>
 				 <%      	   }
            }else{
 			%>
-			<li>No event today..!!</li>
+			<li>No birthday today..!!</li>
 			<%} %>
 			</ul>
 		</marquee>
@@ -272,7 +283,6 @@ function resetForm(){
       <p><strong>News & Announcement</strong></p>
         <p>Alumni association will make many decisions that impact the members of the assocation.</p>
         <p class="btmspace-30">So, this announcement will be made public in this forum.</p>
-        <footer><a class="btn" href="#">Read More &raquo;</a></footer>
 	</div>
 	      <div class="one_half">
  <marquee direction="up" scrollamount="2">
@@ -301,17 +311,19 @@ function resetForm(){
 <td width:33.33%>
 <section class="hoc container clear"> 
     <div class="sectiontitle">
-      <h6 class="heading">Quote of the day</h6>
+      <h6 class="heading">Share your thoughts</h6>
     </div>
     <div>
     <blockquote>
-        It is not the critic who counts; not the man who points out how the strong man stumbles, or where the doer of deeds could have done them better. The credit belongs to the man who is actually in the arena, whose face is marred by dust and sweat and blood; who strives valiantly; who errs, who comes short again and again, because there is no effort without error and shortcoming; but who does actually strive to do the deeds; who knows great enthusiasms, the great devotions; who spends himself in a worthy cause; who at the best knows in the end the triumph of high achievement, and who at the worst, if he fails, at least fails while daring greatly, so that his place shall never be with those cold and timid souls who neither know victory nor defeat.
-    <footer>
+The biggest likelihood in studying at Madurai KamarajUniversity is that it will provide the experience they want and help them to achieve their goals.    <footer>
         <cite>
-            Teddy Roosevelt
+            Rajamuthu.R, 
+            Senior Sceintist in DRDO,
+            1992-1996 Batch
         </cite>
     </footer>
     </blockquote>
+    <footer><a class="btn" href="#">Read More &raquo;</a></footer>
 </div>
     <div class="clear"></div>
   </section>

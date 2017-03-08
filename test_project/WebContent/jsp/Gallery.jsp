@@ -15,85 +15,52 @@
 	    </ul>
 	  </section>
 	</div>
-	
+	<div id="upload" class="w3-modal">
+						<div class="w3-modal-content w3-card-8 w3-animate-zoom"	style="max-width: 600px">
+							<div class="w3-center">
+								<br> <span	class="w3-closebtn w3-hover-red w3-container w3-padding-8 w3-display-topright"	onclick="resetUpload()" title="Close Modal">&times;</span>
+								<h3>Upload</h3>
+							</div>
+							<div id="upload2">
+								<form method="post" class="w3-container" id="uploadForm" enctype="multipart/form-data">
+									<div class="w3-section">
+									<div id="id021">
+										<label><b>Select file to upload:</b></label> <input type="file" name="file" size="60" required/>
+										<br/> 
+										<div class="w3-center">
+										<button class="w3-btn w3-orange w3-text-white"	type="submit" onclick="uploadImage(this)" >Upload</button>
+										<button	onclick="resetUpload()"	type="button" class="w3-btn w3-grey w3-text-white">Cancel</button>
+										</div>
+									</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>  
 <div class="wrapper row3">
 	  <main class="hoc container clear" id="gallerySection"> 
-		<div style="width:100%;padding-bottom:60px;" ><h1>Gallery</h1></div>
+		<div style="width:100%;padding-bottom:60px;" ><h1>Gallery</h1>
+		
+		<div style="float:right;"><a class="btn" onclick="document.getElementById('upload').style.display='block'">Upload Image</a></div>
+</div>
+		
 		<div class="scrollable">
 <div id="gallery" style="display:none;">
  
-<img alt="Alumni"
-		     src="images/gallery/20151127_065417.jpg"
-		     data-image="images/gallery/20151127_065417.jpg"
+ <%
+ String imageUrl = request.getServletContext().getRealPath("")+File.separator+"images"+File.separator+"gallery";
+ File imageDir = new File(imageUrl);
+ for(File imageFile : imageDir.listFiles()){
+   String imageFileName = imageFile.getName();
+ %>
+ <img alt="Alumni"
+		     src="images/gallery/<%= imageFileName%>"
+		     data-image="images/gallery/<%= imageFileName%>"
 		     style="display:none">
-<img alt="Alumni"
-		     src="images/gallery/20151127_083035_029.jpg"
-		     data-image="images/gallery/20151127_083035_029.jpg"
-		     style="display:none">
-<img alt="Alumni"
-		     src="images/gallery/2138350-1920x1080-wallup-28573 (copy).jpg"
-		     data-image="images/gallery/2138350-1920x1080-wallup-28573 (copy).jpg"
-		     style="display:none">
-<img alt="Alumni"
-		     src="images/gallery/2138350-1920x1080-wallup-28573.jpg"
-		     data-image="images/gallery/2138350-1920x1080-wallup-28573.jpg"
-		     style="display:none">
-<img alt="Alumni"
-		     src="images/gallery/DSC_0819.JPG"
-		     data-image="images/gallery/DSC_0819.JPG"
-		     style="display:none">
-		     <img alt="Alumni"
-		     src="images/gallery/IMG_3248.JPG"
-		     data-image="images/gallery/IMG_3248.JPG"
-		     style="display:none">
-		     <img alt="Alumni"
-		     src="images/gallery/IMG_5062.JPG"
-		     data-image="images/gallery/IMG_5062.JPG"
-		     style="display:none">
-		     <img alt="Alumni"
-		     src="images/gallery/patterned_wallpaper_by_pilotaz-d3cojnm (copy).jpg"
-		     data-image="images/gallery/patterned_wallpaper_by_pilotaz-d3cojnm (copy).jpg"
-		     style="display:none">
-		      <img alt="Alumni"
-		     src="images/gallery/low-poly-deer-head-wallpaper-for-1920x1080-63-1012.jpg"
-		     data-image="images/gallery/low-poly-deer-head-wallpaper-for-1920x1080-63-1012.jpg"
-		     style="display:none">
-		      <img alt="Alumni"
-		     src="images/gallery/IMG_3248 (copy).JPG"
-		     data-image="images/gallery/IMG_3248 (copy).JPG"
-		     style="display:none">
-		      <img alt="Alumni"
-		     src="images/gallery/patterned_wallpaper_by_pilotaz-d3cojnm.jpg"
-		     data-image="images/gallery/patterned_wallpaper_by_pilotaz-d3cojnm.jpg"
-		     style="display:none">
-		      <img alt="Alumni"
-		     src="images/gallery/retro-wallpaper-35 (copy).jpg"
-		     data-image="images/gallery/retro-wallpaper-35 (copy).jpg"
-		     style="display:none">
-		     <img alt="Alumni"
-		     src="images/gallery/IMG_3248 (another copy).JPG"
-		     data-image="images/gallery/IMG_3248 (another copy).JPG"
-		     style="display:none">
-		      <img alt="Alumni"
-		     src="images/gallery/retro-wallpaper-35.jpg"
-		     data-image="images/gallery/retro-wallpaper-35.jpg"
-		     style="display:none">
-		      <img alt="Alumni"
-		     src="images/gallery/snowy.jpg"
-		     data-image="images/gallery/snowy.jpg"
-		     style="display:none">
-		      <img alt="Alumni"
-		     src="images/gallery/wallpapers_hd_tu2_DyTm2QH (copy).jpg"
-		     data-image="images/gallery/wallpapers_hd_tu2_DyTm2QH (copy).jpg"
-		     style="display:none">
-		     		      <img alt="Alumni"
-		     src="images/gallery/snowy (copy).jpg"
-		     data-image="images/gallery/snowy (copy).jpg"
-		     style="display:none">
-		      <img alt="Alumni"
-		     src="images/gallery/wallpapers_hd_tu2_DyTm2QH.jpg"
-		     data-image="images/gallery/wallpapers_hd_tu2_DyTm2QH.jpg"
-		     style="display:none">
+ 
+  <% 
+ }
+ %>
 </div>
 </div>
 </main>
@@ -109,4 +76,34 @@
 
 		});
 		
+		function resetUpload(){
+			$("input[name='file']").val('');
+			document.getElementById('upload').style.display='none'
+			
+		}
+
+		function uploadImage(ex) {
+			var file = jQuery("input[name='file']").val();
+			if(file !== ''){
+				var formData = new FormData();
+				formData.append('file', $("input[name='file']")[0].files[0]);
+
+						$.ajax({
+							url : "/AluminiMgnt/UploadServlet",
+							data : formData,
+							type : "POST",
+							processData: false,
+						    	contentType: false,
+							success : function(data) {
+								if (data == "success") {
+									document.getElementById('upload').style.display = 'none';
+									jQuery("#galleries").click();
+								} else {
+									document.getElementById('alert').style.display = 'block';
+								}
+							}
+						});
+			}
+			
+		}
 	</script>

@@ -38,26 +38,14 @@ public class AluminiMgntAction extends Action {
        		}
        		
        		if(action.equalsIgnoreCase("home")){
-       			Calendar c = new GregorianCalendar();
-       			c.set(Calendar.HOUR_OF_DAY, 0);
-       			c.set(Calendar.MINUTE, 0);
-       			c.set(Calendar.SECOND, 0);
-       			Long d1 = c.getTimeInMillis();
 
-       			Calendar c1 = new GregorianCalendar(); 
-       			c1.add(Calendar.DATE, 1);
-       			c.set(Calendar.HOUR_OF_DAY, 0);
-       			c.set(Calendar.MINUTE, 0);
-       			c.set(Calendar.SECOND, 0);
-       			Long d2 = c1.getTimeInMillis();
-
-       			String eventQuery ="SELECT * FROM Events WHERE time BETWEEN "+d1+" AND "+d2;
-    			ArrayList<HashMap> events = getEvents(eventQuery);
+       			String alumniQuery ="SELECT * FROM Alumni";
+    			ArrayList<HashMap> birthday = getTodayBirthDayAlumniList(alumniQuery);
     			
     			String announcementQuery = "SELECT * FROM Announcement";
     			ArrayList<HashMap> announcement = getAnnouncement(announcementQuery);
 
-    			request.setAttribute("events", events);
+    			request.setAttribute("birthday", birthday);
     			request.setAttribute("announcements", announcement);
        	        return mapping.findForward("home"); // No I18N
        			
@@ -263,6 +251,67 @@ public class AluminiMgntAction extends Action {
     	}
     	return alumniList;
     }
+    
+    private ArrayList<HashMap> getTodayBirthDayAlumniList(String query){
+    	ArrayList<HashMap> alumniList = new ArrayList<HashMap>();
+    	try{
+    		if(conn != null){
+    			st = conn.createStatement();
+    			res = st.executeQuery(query); 
+    		}
+
+    		while(res.next()){
+    			
+    			Calendar todayCal = Calendar.getInstance();
+    			int tmonth = todayCal.get(Calendar.MONTH);
+    		    int tday = todayCal.get(Calendar.DAY_OF_MONTH);
+    			
+    			long dob = res.getLong("dob");
+    			Date dobDate = new Date(dob);
+    			Calendar cal = Calendar.getInstance();
+    		    cal.setTime(dobDate);
+    		    int month = cal.get(Calendar.MONTH);
+    		    int day = cal.get(Calendar.DAY_OF_MONTH);
+    			String dobStr = new SimpleDateFormat("yyyy-MM-dd").format(dobDate);
+    			
+    			if(tmonth == month && tday == day){
+    				HashMap row = new HashMap();
+        			int id  = res.getInt("id");
+        			String name = res.getString("name");
+        			long batchyear = res.getLong("batchyear");
+        			Date batchyearDate = new Date(batchyear);
+        			String batchyearStr = new SimpleDateFormat("yyyy").format(batchyearDate);
+        			
+        			long passoutyear = res.getLong("passoutyear");
+        			Date passoutyearDate = new Date(passoutyear);
+        			String passoutyearStr = new SimpleDateFormat("yyyy").format(passoutyearDate);
+        			
+           			String degree = res.getString("degree");
+        			String currentposition = res.getString("currentposition");
+        			long mobilenumber = res.getLong("mobilenumber");
+        			String email = res.getString("email");
+
+        			row.put("id", id);
+        			row.put("name", name);
+        			row.put("dobStr", dobStr);
+        			row.put("batchyear", batchyearStr);
+        			row.put("passoutyear", passoutyearStr);
+        			row.put("degree", degree);
+        			row.put("currentposition", currentposition);
+        			row.put("mobilenumber", mobilenumber);
+        			row.put("email", email);
+
+        			alumniList.add(row);
+    			}
+      		}
+    	}catch(Exception ex){
+
+    	}finally{
+    		
+    	}
+    	return alumniList;
+    }
+ 
     private void saveEvents(HttpServletRequest request) throws Exception{
     	String eventid = (String)request.getParameter("eventid");
     	String eventName = (String)request.getParameter("name");
@@ -279,7 +328,6 @@ public class AluminiMgntAction extends Action {
 			query = "update Events set title='"+eventName+"',description='"+desc+"',place='"+place+"',time='"+mills+"' where eventid='"+eventid+"';";
 
 		}
-		System.out.println(query);
 		try{
     		if(conn != null){
     			st = conn.createStatement();

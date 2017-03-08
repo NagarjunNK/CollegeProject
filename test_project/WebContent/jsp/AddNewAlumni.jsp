@@ -45,7 +45,7 @@ jQuery(document).ready(function(){
 }%>
 </script>
 <div class="form-sec">
-<h2>Add New Event</h2>
+<h2>Add New Alumni</h2>
         <form id="alumni-form"  method="post">
         	        	<input type="hidden" name="alumniid" id="alumniid" value="">
           <div class="block clear first">

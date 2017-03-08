@@ -42,18 +42,23 @@ public class APIServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		Statement st = null;
 		ResultSet res = null;
 		PrintWriter pout = null;
 		String username = 	request.getParameter("username");
 		String pwd = (String)request.getParameter("password");
+		String usr = null;
+		String role = null;
 		
 		String query = "Select * from User where username='"+username+"' and password='"+pwd+"';";
 		try {
 			if(conn != null){
 				st = conn.createStatement();
 			    res = st.executeQuery(query); 
+			    while(res.next()){
+			    	usr = res.getString("name");
+			    	role = res.getString("role");
+			    }
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -62,8 +67,8 @@ public class APIServlet extends HttpServlet {
 			pout = response.getWriter();
 			if(res.next()){
 				HttpSession session = request.getSession(true);
-				session.setAttribute("UserName", username);
-				session.setAttribute("UserType", "Admin");
+				session.setAttribute("UserName", usr);
+				session.setAttribute("role", role);
 				pout.print("success"); //NO OUTPUTENCODING
 			}else{
 				pout.print("failure"); //NO OUTPUTENCODING
@@ -77,7 +82,39 @@ public class APIServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		Statement st = null;
+		ResultSet res = null;
+		PrintWriter pout = null;
+		String username = 	request.getParameter("username");
+		String pwd = (String)request.getParameter("password");
+		String role = (String)request.getParameter("role");
+		
+		pout = response.getWriter();
+		HttpSession session = request.getSession(true);
+		
+		String query = "insert into User values(default,'"+username+"','"+pwd+"','"+role+"');";
+		try{
+    		if(conn != null){
+    			st = conn.createStatement();
+    			int result = st.executeUpdate(query);
+    			
+				session.setAttribute("UserName", username);
+				session.setAttribute("role", role);
+				pout.print("success"); //NO OUTPUTENCODING
+			
+    		}
+    	}catch(Exception ex){
+			pout.print("failure"); //NO OUTPUTENCODING
+    	}finally{
+    		pout.close();
+    		try {
+    			st.close();
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	}
+		
 	}
 
 }
