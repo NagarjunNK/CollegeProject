@@ -10,7 +10,7 @@
 	</style>
 	<script>
 	$(document).ready(function() {
-	    $('#events').DataTable({ "info":     false});
+	    jQuery('#events').DataTable({ "info": false});
 	    jQuery('#AddNewEvent').on("click",function(){
 			 jQuery.ajax('/AluminiMgnt/alumni.do?action=addNewEvent', {
 			      success: function(data) {

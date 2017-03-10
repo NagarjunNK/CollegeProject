@@ -42,11 +42,11 @@ public class AluminiMgntAction extends Action {
        			String alumniQuery ="SELECT * FROM Alumni";
     			ArrayList<HashMap> birthday = getTodayBirthDayAlumniList(alumniQuery);
     			
-    			String announcementQuery = "SELECT * FROM Announcement";
-    			ArrayList<HashMap> announcement = getAnnouncement(announcementQuery);
+    			String eventQuery = "SELECT * FROM Events";
+    			ArrayList<HashMap> event = getTodayEvents(eventQuery);
 
     			request.setAttribute("birthday", birthday);
-    			request.setAttribute("announcements", announcement);
+    			request.setAttribute("event", event);
        	        return mapping.findForward("home"); // No I18N
        			
        		}
@@ -311,7 +311,52 @@ public class AluminiMgntAction extends Action {
     	}
     	return alumniList;
     }
- 
+    
+    private ArrayList<HashMap> getTodayEvents(String query){
+    	ArrayList<HashMap> eventList = new ArrayList<HashMap>();
+    	try{
+    		if(conn != null){
+    			st = conn.createStatement();
+    			res = st.executeQuery(query); 
+    		}
+
+    		while(res.next()){
+    			
+    			Calendar todayCal = Calendar.getInstance();
+    			int tmonth = todayCal.get(Calendar.MONTH);
+    		    int tday = todayCal.get(Calendar.DAY_OF_MONTH);
+    			
+    			long time = res.getLong("time");
+    			Date date = new Date(time);
+    			Calendar cal = Calendar.getInstance();
+    		    cal.setTime(date);
+    		    int month = cal.get(Calendar.MONTH);
+    		    int day = cal.get(Calendar.DAY_OF_MONTH);
+    			String timeStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
+    			
+    			if(tmonth == month && tday == day){
+    				HashMap row = new HashMap();
+        			int id  = res.getInt("eventid");
+        			String title = res.getString("title");
+        			long desc = res.getLong("description");
+        			
+
+        			row.put("id", id);
+        			row.put("title", title);
+        			row.put("desc", desc);
+
+        			eventList.add(row);
+    			}
+      		}
+    	}catch(Exception ex){
+
+    	}finally{
+    		
+    	}
+    	return eventList;
+    }
+    
+    
     private void saveEvents(HttpServletRequest request) throws Exception{
     	String eventid = (String)request.getParameter("eventid");
     	String eventName = (String)request.getParameter("name");

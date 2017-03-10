@@ -53,6 +53,19 @@ blockquote cite:before {
 <script>
 jQuery(document).ready(function() {
 	
+	 jQuery('.flexslider').flexslider({
+         animation: "slide",
+         slideshow:true,
+         slideshowSpeed:3000,
+         controlNav: false,
+         controlsContainer: ".flex-container",
+         start: function(slider) {
+           $('.total-slides').text(slider.count);
+         },
+         after: function(slider) {
+           $('.current-slide').text(slider.currentSlide);
+         }
+    });
 	jQuery('#galleries').on("click",function(){
 		 jQuery.ajax('/AluminiMgnt/gallery.do', {
 		      success: function(data) {
@@ -66,7 +79,6 @@ jQuery(document).ready(function() {
 	jQuery('#event').on("click",function(){
 		 jQuery.ajax('/AluminiMgnt/alumni.do?action=getevents', {
 		      success: function(data) {
-		    	  console.log(data);
 		        jQuery('#contentSection').html(data);
 		      },
 		      error: function() {
@@ -77,7 +89,6 @@ jQuery(document).ready(function() {
 	jQuery('#alumni').on("click",function(){
 		 jQuery.ajax('/AluminiMgnt/alumni.do?action=getalumnilist', {
 		      success: function(data) {
-		    	  console.log(data);
 		        jQuery('#contentSection').html(data);
 		      },
 		      error: function() {
@@ -158,12 +169,19 @@ function resetForm(){
 		}
 </script>
 <div class="wrapper row1">
-  <header id="header" class="hoc clear" > 
+  <header id="header" class="hoc clear" style="max-width:1040px;"> 
+  
+  	<table style="border-color:#0a0a0a;"><tr style="background-color:#0a0a0a;">
+  	<td style="border-color:#0a0a0a;width:15%;"><div><img src="images/demo/backgrounds/mdu_logo.jpg"  ></div></td>
+  	<td style="border-color:#0a0a0a;width:70%;">
     <div id="logo"  style="text-align:center;">
-    <h1><a href="/AluminiMgnt/home.do?action=home">MADURAI KAMARAJ UNIVERSITY</a></h1>
-    <h1><a href="/AluminiMgnt/home.do?action=home">DEPARTMENT OF COMPUTER SCIENCE</a></h1>
-      <h1><a href="/AluminiMgnt/home.do?action=home">ALUMNI INFORMATION MANAGEMENT SYSTEM</a></h1>
+    <h1><a href="/AluminiMgnt/alumni.do?action=home">MADURAI KAMARAJ UNIVERSITY</a></h1>
+    <h1><a href="/AluminiMgnt/alumni.do?action=home">DEPARTMENT OF COMPUTER SCIENCE</a></h1>
+      <h1><a href="/AluminiMgnt/alumni.do?action=home">ALUMNI INFORMATION MANAGEMENT SYSTEM</a></h1>
     </div>
+    </td>
+    <td style="border-color:#0a0a0a;width:15%;"> <div><img src="images/demo/backgrounds/mdu_logo.jpg"  ></div></td>
+    </tr></table>
    <!--  <div id="quickinfo" class="fl_right">
       <ul class="nospace inline">
         <li><strong><a onclick="document.getElementById('id01').style.display='block'">Login</a></strong></li>|
@@ -176,7 +194,7 @@ function resetForm(){
 <div class="wrapper row2">
   <nav id="mainav" class="hoc clear" style="display: block;text-align: center;"> 
     <ul class="clear">
-      <li id="home" class="active"><a href="/AluminiMgnt/home.do?action=home">Home</a></li>
+      <li id="home" class="active"><a href="/AluminiMgnt/alumni.do?action=home">Home</a></li>
       <li id="aboutus"><a class="drop" href="#">About Us</a>
       	<ul>
               <li><a href="#">Department</a>
@@ -200,35 +218,18 @@ function resetForm(){
 <div id="galleryDiv">
 </div>
 <div id="contentSection">
-<div class="wrapper bgded" style="background-image:url('images/demo/backgrounds/mkuniv2.jpg');">
-  <div id="pageintro" class="hoc clear"> 
-    <div class="flexslider basicslider">
-      <ul class="slides">
+<div class="flexslider" style="width:1905px;max-height:380px;">
+	<ul class="slides">
         <li>
-          <article>
-          
-            <h3 class="heading" style="background-image:url('images/gallery/20151127_065417.jpg');">Lorem vulputate diam eget sagittis</h3>
-            <p>Vivamus in ligula ut risus bibendum aenean purus enim euismod nec scelerisque a fringilla et mauris.</p>
-            <footer><a class="btn" href="#">Molestie mauris</a></footer>
-          </article>
+          <img src="images/demo/backgrounds/mkuniv2.jpg" style="width:1905px;max-height:380px;"/>
         </li>
         <li>
-          <article>
-            <h3 class="heading">Vivamus elementum auctor nam augue</h3>
-            <p>Sed imperdiet facilisis urna curabitur lectus vestibulum posuere lobortis lorem vivamus quis sapien.</p>
-            <footer><a class="btn" href="#">Rhoncus nulla</a></footer>
-          </article>
+          <img src="images/demo/backgrounds/mkuniv2.jpg" style="width:1905px;max-height:380px;"/>
         </li>
         <li>
-          <article>
-            <h3 class="heading">Sodales euismod tellus vestibulum suscipit</h3>
-            <p>Tellus faucibus sit amet placerat sed placerat eu ipsum etiam auctor lectus ut mollis pharetra nisi.</p>
-            <footer><a class="btn" href="#">Lacinia vulputate</a></footer>
-          </article>
+         <img src="images/demo/backgrounds/mkuniv2.jpg" style="width:1905px;max-height:380px;"/>
         </li>
       </ul>
-    </div>
-  </div>
 </div>
 <div class="wrapper bgded overlay"  style="background-color: black;">
   <main class="hoc container clear"> 
@@ -288,17 +289,17 @@ function resetForm(){
  <marquee direction="up" scrollamount="2">
 			<ul>
 				<%
-			ArrayList announcements = (ArrayList)request.getAttribute("announcements");
-           if(announcements != null && !announcements.isEmpty()){
-        	   for(int i=0; i<announcements.size(); i++){
-        		   HashMap row = (HashMap)announcements.get(i);
-        		   String msg = (String)row.get("message");
+			ArrayList event = (ArrayList)request.getAttribute("event");
+           if(event != null && !event.isEmpty()){
+        	   for(int i=0; i<event.size(); i++){
+        		   HashMap row = (HashMap)event.get(i);
+        		   String msg = (String)row.get("title");
         		    %>
 				<li><%=msg %></li>
 				 <%      	   }
            }else{
 			%>
-			<li>No news from association..!!</li>
+			<li>No news or events from association..!!</li>
 			<%} %>
 			</ul>
 	</marquee>

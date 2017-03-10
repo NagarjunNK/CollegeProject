@@ -16,11 +16,9 @@
 						type : "GET",
 						success : function(data) {
 							if (data == "success") {
-								console.log(data);
 								document.getElementById('id02').style.display = 'none';
 								document.getElementById('id03').style.display = 'block';
 							} else {
-								console.log(data);
 								document.getElementById('alert').style.display = 'block';
 							}
 						}
