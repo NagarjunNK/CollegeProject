@@ -7,9 +7,13 @@
 	.dataTables_filter label{
 	display:inline-flex;
 	}
+	#alumniList tr:hover {
+    background-color: #ccc;
+    cursor:pointer;
+	}
 	</style>
 	<script>
-	$(document).ready(function() {
+	jQuery(document).ready(function() {
 		jQuery('#alumniList').DataTable({ "info": false});
 	    jQuery('#AddNewAlumni').on("click",function(){
 			 jQuery.ajax('/AluminiMgnt/alumni.do?action=addNewAlumni', {
@@ -49,6 +53,18 @@
 			   });
 		}
 		return false;
+	}
+	function getAlumniDetails(ele){
+		var id = jQuery(ele).attr('value');
+		var url = '/AluminiMgnt/alumni.do?action=getalumnidetail'+'&id='+id;
+		jQuery.ajax(url, {
+		      success: function(data) {
+			jQuery('#AlumniListSection').html(data);
+		      },
+		      error: function() {
+		    	  console.log("error");
+		      }
+		   });
 	}
 	</script>
 	<div class="wrapper bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');">
@@ -100,14 +116,14 @@
 			<tr>
 		       <td><a onClick="javascript:editAlumni(this);" value="<%=id %>"><img src="images/edit.png" style="height:17px;width:25px;"></a></td>
 		       <td><a onClick="javascript:deleteAlumni(this);" value="<%=id %>"><img src="images/delete.png" style="height:17px;width:25px;"></a></td>
-		      <td><a href="#"><%=name %></a></td>
-		      <td><%=batchyear %></td>
-		      <td><%=passoutyear %></td>
-		      <td><%=dobStr %></td>
-		      <td><%=degree %></td>
-		      <td><%=currentposition %></td>
-		      <td><%=mobilenumber %></td>
-		      <td><%=email %></td>
+		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=name %></td>
+		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=batchyear %></td>
+		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=passoutyear %></td>
+		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=dobStr %></td>
+		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=degree %></td>
+		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=currentposition %></td>
+		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=mobilenumber %></td>
+		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=email %></td>
 
 		    </tr>
 				   

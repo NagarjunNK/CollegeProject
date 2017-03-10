@@ -57,6 +57,13 @@ public class AluminiMgntAction extends Action {
         		return mapping.findForward("eventList");
 
     		}
+    		if("geteventdetail".equalsIgnoreCase(action)){
+    			String id = (String) request.getParameter("id");
+    			String query = "select * from Events where eventid="+id;
+    			ArrayList<HashMap> events = getEvents(query);
+    			request.setAttribute("event", events);
+        		return mapping.findForward("eventDetail");
+    		}
     		if("addNewEvent".equalsIgnoreCase(action)){
         		return mapping.findForward("addNewEvent");
     		}
@@ -88,6 +95,13 @@ public class AluminiMgntAction extends Action {
     			ArrayList<HashMap> alumniList = getAlumniList(query);
     			request.setAttribute("alumniList", alumniList);
         		return mapping.findForward("alumniList");
+    		}
+    		if("getalumnidetail".equalsIgnoreCase(action)){
+    			String id = (String) request.getParameter("id");
+    			String query = "select * from Alumni where id="+id;
+    			ArrayList<HashMap> events = getAlumniList(query);
+    			request.setAttribute("alumni", events);
+        		return mapping.findForward("alumniDetail");
     		}
     		if("addNewAlumni".equalsIgnoreCase(action)){
         		return mapping.findForward("addNewAlumni");

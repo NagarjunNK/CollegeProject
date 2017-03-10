@@ -7,9 +7,13 @@
 	.dataTables_filter label{
 	display:inline-flex;
 	}
+	#events tr:hover {
+    background-color: #ccc;
+    cursor:pointer;
+	}
 	</style>
 	<script>
-	$(document).ready(function() {
+	jQuery(document).ready(function() {
 	    jQuery('#events').DataTable({ "info": false});
 	    jQuery('#AddNewEvent').on("click",function(){
 			 jQuery.ajax('/AluminiMgnt/alumni.do?action=addNewEvent', {
@@ -51,6 +55,18 @@
 		}
 		return false;
 	}
+	function getEventDetails(ele){
+		var id = jQuery(ele).attr('value');
+		var url = '/AluminiMgnt/alumni.do?action=geteventdetail'+'&id='+id;
+		jQuery.ajax(url, {
+		      success: function(data) {
+			jQuery('#EventSection').html(data);
+		      },
+		      error: function() {
+		    	  console.log("error");
+		      }
+		   });
+	}
 	</script>
 	<div class="wrapper bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');">
 	  <section id="breadcrumb" class="hoc clear"> 
@@ -91,10 +107,10 @@
 			<tr>
 		       <td><a onClick="javascript:editEvent(this);" value="<%=id %>"><img src="images/edit.png" style="height:17px;width:25px;" ></a></td>
 		       <td><a onClick="javascript:deleteEvent(this);" value="<%=id %>"><img src="images/delete.png" style="height:17px;width:25px;" ></a></td>
-		      <td><a href="#"><%=title %></a></td>
-		      <td><%=desc %></td>
-		      <td><%=place %></td>
-		      <td><%=time %></td>
+		      <td onclick="javascript:getEventDetails(this);" value="<%=id %>"><%=title %></td>
+		      <td onclick="javascript:getEventDetails(this);" value="<%=id %>"><%=desc %></td>
+		      <td onclick="javascript:getEventDetails(this);" value="<%=id %>"><%=place %></td>
+		      <td onclick="javascript:getEventDetails(this);" value="<%=id %>"><%=time %></td>
 		    </tr>
 				   
 	  <%      	   }

@@ -69,6 +69,10 @@ jQuery(document).ready(function() {
 	jQuery('#galleries').on("click",function(){
 		 jQuery.ajax('/AluminiMgnt/gallery.do', {
 		      success: function(data) {
+		    	  $('#mainav li').each(function() {
+		    		   $(this).removeAttr('class');
+		    		});
+		    	jQuery('#galleries').addClass('active');
 		        jQuery('#contentSection').html(data);
 		      },
 		      error: function() {
@@ -79,6 +83,10 @@ jQuery(document).ready(function() {
 	jQuery('#event').on("click",function(){
 		 jQuery.ajax('/AluminiMgnt/alumni.do?action=getevents', {
 		      success: function(data) {
+		    	  $('#mainav li').each(function() {
+		    		   $(this).removeAttr('class');
+		    		});
+		    	jQuery('#event').addClass('active');
 		        jQuery('#contentSection').html(data);
 		      },
 		      error: function() {
@@ -89,6 +97,10 @@ jQuery(document).ready(function() {
 	jQuery('#alumni').on("click",function(){
 		 jQuery.ajax('/AluminiMgnt/alumni.do?action=getalumnilist', {
 		      success: function(data) {
+		    	  $('#mainav li').each(function() {
+		    		   $(this).removeAttr('class');
+		    		});
+		    	jQuery('#alumni').addClass('active');
 		        jQuery('#contentSection').html(data);
 		      },
 		      error: function() {
