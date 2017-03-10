@@ -50,6 +50,7 @@
  <%
  String imageUrl = request.getServletContext().getRealPath("")+File.separator+"images"+File.separator+"gallery";
  File imageDir = new File(imageUrl);
+ if(imageDir.listFiles().length > 0){
  for(File imageFile : imageDir.listFiles()){
    String imageFileName = imageFile.getName();
  %>
@@ -59,8 +60,10 @@
 		     style="display:none">
  
   <% 
- }
+ }}else{
  %>
+ <h3 style="text-align:center;">No images found in gallery</h3>
+ <%} %>
 </div>
 </div>
 </main>
