@@ -22,7 +22,8 @@
 				<forward name="alumniDetail" path="/jsp/AlumniDetails.jsp"/>
 			</action>
 			<action  path="/conversation"  scope="request" type="com.tss.alumini.action.ConversationAction">
-				<forward name="conv" path="//jsp/Conversation.jsp"></forward>
+				<forward name="conv" path="/jsp/ConversationList.jsp"></forward>
+				<forward name="conversation" path="/jsp/Conversation.jsp"></forward>
 			</action>
 		</action-mappings>
 </struts-config>

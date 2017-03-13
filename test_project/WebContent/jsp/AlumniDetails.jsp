@@ -26,11 +26,36 @@ jQuery(document).ready(function(){
 	jQuery('#degree').text('<%=degree%>');
 	jQuery('#mobile').text('<%=mobilenumber%>');
 	jQuery('#email').text('<%=email%>');
-
+	
+	 jQuery('#alumnibreadcrum').on("click",function(){
+		 jQuery.ajax('/AluminiMgnt/alumni.do?action=getalumnilist', {
+		      success: function(data) {
+		    	  $('#mainav li').each(function() {
+		    		   $(this).removeAttr('class');
+		    		});
+		    	jQuery('#alumni').addClass('active');
+		        jQuery('#contentSection').html(data);
+		      },
+		      error: function() {
+		    	  console.log("error");
+		      }
+		   });
+	});
 });
 <%}
 }%>
 </script>
+<div class="wrapper bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');">
+	  <section id="breadcrumb" class="hoc clear"> 
+	    <h6 class="heading">Alumni</h6>
+	    <ul>
+	      <li><a href="#">Home</a></li>
+	      <li><a id="alumnibreadcrum">Alumni</a></li>
+	    </ul>
+	  </section>
+	</div>
+	<div class="wrapper row3">
+	  <main class="hoc container clear" id="AlumniListSection"> 
 <div class="form-sec">
 <h2>Alumni Details</h2>
         <form id="alumni-form"  method="post">
@@ -46,4 +71,6 @@ jQuery(document).ready(function(){
         	<tr><td> <label for="email">Email :</label></td><td><span id="email"></span></td></tr>
         </table>
         </form>
+</div>
+</main>
 </div>

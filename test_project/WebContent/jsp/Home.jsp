@@ -108,6 +108,20 @@ jQuery(document).ready(function() {
 		      }
 		   });
 	});
+	jQuery('#conversation').on("click",function(){
+		 jQuery.ajax('/AluminiMgnt/conversation.do?action=getconversationlist', {
+		      success: function(data) {
+		    	  $('#mainav li').each(function() {
+		    		   $(this).removeAttr('class');
+		    		});
+		    	jQuery('#conversation').addClass('active');
+		        jQuery('#contentSection').html(data);
+		      },
+		      error: function() {
+		    	  console.log("error");
+		      }
+		   });
+	});
 });
 function login() {
 	var inputs = $('#loginForm').serializeArray();
@@ -136,7 +150,30 @@ function resetForm(){
 	$("input[name='password']").val('');
 
 }
-
+function getAlumniDetails(ele){
+	var id = jQuery(ele).attr('value');
+	var url = '/AluminiMgnt/alumni.do?action=getalumnidetail'+'&id='+id;
+	jQuery.ajax(url, {
+	      success: function(data) {
+		jQuery('#contentSection').html(data);
+	      },
+	      error: function() {
+	    	  console.log("error");
+	      }
+	   });
+}
+function getEventDetails(ele){
+	var id = jQuery(ele).attr('value');
+	var url = '/AluminiMgnt/alumni.do?action=geteventdetail'+'&id='+id;
+	jQuery.ajax(url, {
+	      success: function(data) {
+		jQuery('#contentSection').html(data);
+	      },
+	      error: function() {
+	    	  console.log("error");
+	      }
+	   });
+}
 	</script>
 	<div id="id01" class="w3-modal">
 						<div class="w3-modal-content w3-card-8 w3-animate-zoom"	style="max-width: 600px">
@@ -222,6 +259,7 @@ function resetForm(){
       <li id="alumni"><a>Alumni</a></li>
       <li id="event"><a>Events</a></li>
       <li id="galleries"><a>Gallery</a></li>
+      <li id="conversation"><a>Conversation</a></li>
       <li id="login"><a onclick="document.getElementById('id01').style.display='block'">Login</a></li>
     </ul>
 
@@ -272,8 +310,9 @@ function resetForm(){
         	   for(int i=0; i<birthday.size(); i++){
         		   HashMap row = (HashMap)birthday.get(i);
         		   String name = (String)row.get("name");
+        		   int id = (int)row.get("id");
         		    %>
-				<li><%=name %></li>
+				<li><a onclick="javascript:getAlumniDetails(this);" value="<%=id%>"><%=name %></a></li>
 				 <%      	   }
            }else{
 			%>
@@ -306,8 +345,9 @@ function resetForm(){
         	   for(int i=0; i<event.size(); i++){
         		   HashMap row = (HashMap)event.get(i);
         		   String msg = (String)row.get("title");
+        		   int id = (int)row.get("id");
         		    %>
-				<li><%=msg %></li>
+				<li><a onclick="javascript:getEventDetails(this);" value="<%=id%>"><%=msg %></a></li>
 				 <%      	   }
            }else{
 			%>

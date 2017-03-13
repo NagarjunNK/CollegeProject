@@ -11,7 +11,7 @@
 	    <h6 class="heading">Gallery</h6>
 	    <ul>
 	      <li><a href="#">Home</a></li>
-	      <li><a href="#">Gallery</a></li>
+	      <li><a id="gallerybreadcrum">Gallery</a></li>
 	    </ul>
 	  </section>
 	</div>
@@ -75,6 +75,21 @@
 
 			jQuery("#gallery").unitegallery({
 				theme_navigation_type:"arrows"
+			});
+			
+			jQuery('#gallerybreadcrum').on("click",function(){
+				 jQuery.ajax('/AluminiMgnt/gallery.do', {
+				      success: function(data) {
+				    	  $('#mainav li').each(function() {
+				    		   $(this).removeAttr('class');
+				    		});
+				    	jQuery('#galleries').addClass('active');
+				        jQuery('#contentSection').html(data);
+				      },
+				      error: function() {
+				    	  console.log("error");
+				      }
+				   });
 			});
 
 		});

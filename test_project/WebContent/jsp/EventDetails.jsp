@@ -17,11 +17,36 @@ jQuery(document).ready(function(){
 	jQuery('#desc').text('<%=desc%>');
 	jQuery('#place').text('<%=place%>');
 	jQuery('#date').text('<%=time%>');
+	
+	 jQuery('#eventbreadcrum').on("click",function(){
+		 jQuery.ajax('/AluminiMgnt/alumni.do?action=getevents', {
+		      success: function(data) {
+		    	  $('#mainav li').each(function() {
+		    		   $(this).removeAttr('class');
+		    		});
+		    	jQuery('#event').addClass('active');
+		        jQuery('#contentSection').html(data);
+		      },
+		      error: function() {
+		    	  console.log("error");
+		      }
+		   });
+	});
 });
 <%}
 }%>
 </script>
-
+<div class="wrapper bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');">
+	  <section id="breadcrumb" class="hoc clear"> 
+	    <h6 class="heading">Events</h6>
+	    <ul>
+	      <li><a href="#">Home</a></li>
+	      <li><a id="eventbreadcrum">Events</a></li>
+	    </ul>
+	  </section>
+	</div>
+	<div class="wrapper row3">
+	  <main class="hoc container clear" id="EventSection"> 
 <div class="form-sec">
 <h2>Event Details</h2>
         <form id="event-form"  method="post">
@@ -33,4 +58,6 @@ jQuery(document).ready(function(){
         		<tr><td> <label for="comment">Date :</label></td><td><span id="date"></span></td></tr>
         	</table>
         </form>
+</div>
+</main>
 </div>

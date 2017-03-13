@@ -25,6 +25,21 @@
 			      }
 			   });
 		});
+	    
+	    jQuery('#eventbreadcrum').on("click",function(){
+			 jQuery.ajax('/AluminiMgnt/alumni.do?action=getevents', {
+			      success: function(data) {
+			    	  $('#mainav li').each(function() {
+			    		   $(this).removeAttr('class');
+			    		});
+			    	jQuery('#event').addClass('active');
+			        jQuery('#contentSection').html(data);
+			      },
+			      error: function() {
+			    	  console.log("error");
+			      }
+			   });
+		});
 	 
 	} );
 	
@@ -60,7 +75,7 @@
 		var url = '/AluminiMgnt/alumni.do?action=geteventdetail'+'&id='+id;
 		jQuery.ajax(url, {
 		      success: function(data) {
-			jQuery('#EventSection').html(data);
+			jQuery('#EventContent').html(data);
 		      },
 		      error: function() {
 		    	  console.log("error");
@@ -68,12 +83,13 @@
 		   });
 	}
 	</script>
+	<div id="EventContent">
 	<div class="wrapper bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');">
 	  <section id="breadcrumb" class="hoc clear"> 
 	    <h6 class="heading">Events</h6>
 	    <ul>
 	      <li><a href="#">Home</a></li>
-	      <li><a href="#">Events</a></li>
+	      <li><a id="eventbreadcrum">Events</a></li>
 	    </ul>
 	  </section>
 	</div>
@@ -120,4 +136,5 @@
 		</table>
 	      </div>
 	      </main>
+	</div>
 	</div>

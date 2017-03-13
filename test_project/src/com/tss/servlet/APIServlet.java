@@ -50,7 +50,7 @@ public class APIServlet extends HttpServlet {
 		String usr = null;
 		String role = null;
 		
-		String query = "Select * from User where username='"+username+"' and password='"+pwd+"';";
+		String query = "Select * from User where name='"+username+"' and password='"+pwd+"';";
 		try {
 			if(conn != null){
 				st = conn.createStatement();
@@ -65,7 +65,7 @@ public class APIServlet extends HttpServlet {
 		} 
 		try {
 			pout = response.getWriter();
-			if(res.next()){
+			if(usr != null && role!= null){
 				HttpSession session = request.getSession(true);
 				session.setAttribute("UserName", usr);
 				session.setAttribute("role", role);

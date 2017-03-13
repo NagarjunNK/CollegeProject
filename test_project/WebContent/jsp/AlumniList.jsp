@@ -25,6 +25,21 @@
 			      }
 			   });
 		});
+	    
+	    jQuery('#alumnibreadcrum').on("click",function(){
+			 jQuery.ajax('/AluminiMgnt/alumni.do?action=getalumnilist', {
+			      success: function(data) {
+			    	  $('#mainav li').each(function() {
+			    		   $(this).removeAttr('class');
+			    		});
+			    	jQuery('#alumni').addClass('active');
+			        jQuery('#contentSection').html(data);
+			      },
+			      error: function() {
+			    	  console.log("error");
+			      }
+			   });
+		});
 
 	} );
 	function editAlumni(ele){
@@ -59,7 +74,7 @@
 		var url = '/AluminiMgnt/alumni.do?action=getalumnidetail'+'&id='+id;
 		jQuery.ajax(url, {
 		      success: function(data) {
-			jQuery('#AlumniListSection').html(data);
+			jQuery('#AlumniContent').html(data);
 		      },
 		      error: function() {
 		    	  console.log("error");
@@ -67,12 +82,13 @@
 		   });
 	}
 	</script>
+	<div id="AlumniContent">
 	<div class="wrapper bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');">
 	  <section id="breadcrumb" class="hoc clear"> 
 	    <h6 class="heading">Alumni</h6>
 	    <ul>
 	      <li><a href="#">Home</a></li>
-	      <li><a href="#">Alumni</a></li>
+	      <li><a id="alumnibreadcrum">Alumni</a></li>
 	    </ul>
 	  </section>
 	</div>
@@ -134,4 +150,5 @@
 		</table>
 	      </div>
 	      </main>
+	</div>
 	</div>
