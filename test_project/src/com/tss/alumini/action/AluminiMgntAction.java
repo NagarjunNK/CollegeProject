@@ -36,9 +36,7 @@ public class AluminiMgntAction extends Action {
        		}catch(Exception ex){
        			ex.printStackTrace();
        		}
-       		
        		if(action.equalsIgnoreCase("home")){
-
        			String alumniQuery ="SELECT * FROM Alumni";
     			ArrayList<HashMap> birthday = getTodayBirthDayAlumniList(alumniQuery);
     			
@@ -47,6 +45,7 @@ public class AluminiMgntAction extends Action {
 
     			request.setAttribute("birthday", birthday);
     			request.setAttribute("event", event);
+    			closeConnection();	
        	        return mapping.findForward("home"); // No I18N
        			
        		}
@@ -54,6 +53,7 @@ public class AluminiMgntAction extends Action {
         		String query = "select * from Events order by time desc";
     			ArrayList<HashMap> events = getEvents(query);
     			request.setAttribute("events", events);
+    			closeConnection();
         		return mapping.findForward("eventList");
 
     		}
@@ -62,6 +62,7 @@ public class AluminiMgntAction extends Action {
     			String query = "select * from Events where eventid="+id;
     			ArrayList<HashMap> events = getEvents(query);
     			request.setAttribute("event", events);
+    			closeConnection();
         		return mapping.findForward("eventDetail");
     		}
     		if("addNewEvent".equalsIgnoreCase(action)){
@@ -72,6 +73,7 @@ public class AluminiMgntAction extends Action {
         		String query = "select * from Events order by time desc";
     			ArrayList<HashMap> events = getEvents(query);
     			request.setAttribute("events", events);
+    			closeConnection();
         		return mapping.findForward("eventList");
     		}
     		if("editEvent".equalsIgnoreCase(action)){
@@ -79,6 +81,7 @@ public class AluminiMgntAction extends Action {
     			String query = "select * from Events where eventid="+id;
     			ArrayList<HashMap> events = getEvents(query);
     			request.setAttribute("event", events);
+    			closeConnection();
         		return mapping.findForward("addNewEvent");
     		}
     		if("deleteEvent".equalsIgnoreCase(action)){
@@ -88,12 +91,14 @@ public class AluminiMgntAction extends Action {
     			String query = "select * from Events order by time desc";
     			ArrayList<HashMap> events = getEvents(query);
     			request.setAttribute("events", events);
+    			closeConnection();
         		return mapping.findForward("eventList");
     		}
     		if("getalumnilist".equalsIgnoreCase(action)){
         		String query = "select * from Alumni";
     			ArrayList<HashMap> alumniList = getAlumniList(query);
     			request.setAttribute("alumniList", alumniList);
+    			closeConnection();
         		return mapping.findForward("alumniList");
     		}
     		if("getalumnidetail".equalsIgnoreCase(action)){
@@ -101,6 +106,7 @@ public class AluminiMgntAction extends Action {
     			String query = "select * from Alumni where id="+id;
     			ArrayList<HashMap> events = getAlumniList(query);
     			request.setAttribute("alumni", events);
+    			closeConnection();
         		return mapping.findForward("alumniDetail");
     		}
     		if("addNewAlumni".equalsIgnoreCase(action)){
@@ -111,6 +117,7 @@ public class AluminiMgntAction extends Action {
         		String query = "select * from Alumni";
     			ArrayList<HashMap> alumniList = getAlumniList(query);
     			request.setAttribute("alumniList", alumniList);
+    			closeConnection();
         		return mapping.findForward("alumniList");
     		}
     		if("editAlumni".equalsIgnoreCase(action)){
@@ -118,6 +125,7 @@ public class AluminiMgntAction extends Action {
     			String query = "select * from Alumni where id="+id;
     			ArrayList<HashMap> events = getAlumniList(query);
     			request.setAttribute("alumni", events);
+    			closeConnection();
         		return mapping.findForward("addNewAlumni");
     		}
     		if("deleteAlumni".equalsIgnoreCase(action)){
@@ -127,6 +135,7 @@ public class AluminiMgntAction extends Action {
     			String query = "select * from Alumni";
     			ArrayList<HashMap> alumniList = getAlumniList(query);
     			request.setAttribute("alumniList", alumniList);
+    			closeConnection();
         		return mapping.findForward("alumniList");
     		}
     	}
@@ -165,7 +174,6 @@ public class AluminiMgntAction extends Action {
     		try {
     			res.close();
     			st.close();
-    			conn.close();
     		} catch (SQLException e) {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
@@ -257,7 +265,6 @@ public class AluminiMgntAction extends Action {
     		try {
     			res.close();
     			st.close();
-    			conn.close();
     		} catch (SQLException e) {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
@@ -319,9 +326,14 @@ public class AluminiMgntAction extends Action {
     			}
       		}
     	}catch(Exception ex){
-
-    	}finally{
     		
+    	}finally{
+    		try{
+    			res.close();
+        		st.close();
+    		}catch(Exception ex){
+    			
+    		}
     	}
     	return alumniList;
     }
@@ -365,7 +377,12 @@ public class AluminiMgntAction extends Action {
     	}catch(Exception ex){
 
     	}finally{
-    		
+    		try{
+    			res.close();
+        		st.close();
+    		}catch(Exception ex){
+    			
+    		}
     	}
     	return eventList;
     }
@@ -407,6 +424,7 @@ public class AluminiMgntAction extends Action {
     	String alumniid = (String)request.getParameter("alumniid");
     	String name = (String)request.getParameter("name");
 		SimpleDateFormat yearFormatter = new SimpleDateFormat("yyyy");
+		
 		String batch = (String)request.getParameter("batch");
 		Date batchDate = (Date)yearFormatter.parse(batch);
 		long millsBatch = batchDate.getTime();
@@ -419,8 +437,10 @@ public class AluminiMgntAction extends Action {
 		long mills = dateLong.getTime();
 		String currentposition = (String)request.getParameter("currentposition");
 		String degree = (String)request.getParameter("degree");
+		
 		String mobile = request.getParameter("mobile");
 		long mobileNum = Long.parseLong(mobile);
+		
 		String email = (String)request.getParameter("email");
 		String query = null;
 		if(alumniid.equalsIgnoreCase("") || alumniid ==null){
@@ -462,6 +482,14 @@ public class AluminiMgntAction extends Action {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
+    	}
+    }
+    
+    private void closeConnection() throws Exception{
+    	try{
+    		conn.close();
+    	}catch(Exception ex){
+    		ex.printStackTrace();
     	}
     }
 }
