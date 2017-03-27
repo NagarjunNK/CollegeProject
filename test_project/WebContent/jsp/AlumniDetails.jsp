@@ -14,17 +14,17 @@ if(alumni != null && !alumni.isEmpty()){
 		   String dobStr = (String)row.get("dobStr");
 		   String degree = (String)row.get("degree");
 		   String currentposition = (String)row.get("currentposition");
-		   long mobilenumber = (long)row.get("mobilenumber");
+		   String mobilenumber = (String)row.get("mobilenumber");
 		   String email = (String)row.get("email");
 %>
 jQuery(document).ready(function(){
 	jQuery('#name').text('<%=name%>');
-	jQuery('#batch').text('<%=batchyear%>');
-	jQuery('#yearofpassout').text('<%=passoutyear%>');
-	jQuery('#dob').text('<%=dobStr%>');
+	jQuery('#batchyear').text('<%=batchyear%>');
+	jQuery('#passoutyear').text('<%=passoutyear%>');
+	jQuery('#dobStr').text('<%=dobStr%>');
 	jQuery('#currentposition').text('<%=currentposition%>');
 	jQuery('#degree').text('<%=degree%>');
-	jQuery('#mobile').text('<%=mobilenumber%>');
+	jQuery('#mobilenumber').text('<%=mobilenumber%>');
 	jQuery('#email').text('<%=email%>');
 	
 	 jQuery('#alumnibreadcrum').on("click",function(){

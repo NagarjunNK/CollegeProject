@@ -190,7 +190,7 @@ function getEventDetails(ele){
 										</div>
 										<div id="alert" class="w3-red" style="display:none;"><h6>Invalid Login!</h6></div>
 										<div class="w3-center">
-										<button class="w3-btn w3-orange w3-section w3-padding"	type="button" onclick="login()">Login</button>
+										<button class="w3-btn w3-orange w3-section w3-padding w3-text-white"	type="button" onclick="login()">Login</button>
 										<button	onclick="document.getElementById('id01').style.display='none'"	type="button" class="w3-btn w3-grey w3-text-white">Cancel</button>
 										</div>
 									</div>
@@ -218,6 +218,10 @@ function getEventDetails(ele){
 		}
 </script>
 <div class="wrapper row1">
+<%
+
+String role = (String)request.getSession().getAttribute("role"); 
+%>
   <header id="header" class="hoc clear" style="max-width:1040px;"> 
   
   	<table style="border-color:#0a0a0a;"><tr style="background-color:#0a0a0a;">
@@ -260,7 +264,7 @@ function getEventDetails(ele){
       <li id="event"><a>Events</a></li>
       <li id="galleries"><a>Gallery</a></li>
       <li id="conversation"><a>Conversation</a></li>
-      <li id="login"><a onclick="document.getElementById('id01').style.display='block'">Login</a></li>
+      <li id="login"><%if(request.getSession().getAttribute("role") ==null){ %><a onclick="document.getElementById('id01').style.display='block'">Login</a><%}else{ %><a href="/AluminiMgnt/jsp/Logout.jsp">logout</a><% }%></li>
     </ul>
 
   </nav>
@@ -302,7 +306,7 @@ function getEventDetails(ele){
         <p>BirthDay is the day to remember that time is flying, there is lot to learn</p>
       </div>
       <div class="one_half">
-		<marquee direction="up" scrollamount="2">
+		<marquee direction="up" scrollamount="2" onmouseover="this.stop();" onmouseout="this.start();" style="height:180px;">
 			<ul>
 			<%
 			ArrayList birthday = (ArrayList)request.getAttribute("birthday");
@@ -337,7 +341,7 @@ function getEventDetails(ele){
         <p class="btmspace-30">So, this announcement will be made public in this forum.</p>
 	</div>
 	      <div class="one_half">
- <marquee direction="up" scrollamount="2">
+ <marquee direction="up" scrollamount="2" onmouseover="this.stop();" onmouseout="this.start();"  style="height:180px;">
 			<ul>
 				<%
 			ArrayList event = (ArrayList)request.getAttribute("event");

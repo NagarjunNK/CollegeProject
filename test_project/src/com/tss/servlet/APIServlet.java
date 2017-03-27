@@ -49,7 +49,6 @@ public class APIServlet extends HttpServlet {
 		String pwd = (String)request.getParameter("password");
 		String usr = null;
 		String role = null;
-		
 		String query = "Select * from User where name='"+username+"' and password='"+pwd+"';";
 		try {
 			if(conn != null){
@@ -62,7 +61,15 @@ public class APIServlet extends HttpServlet {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		}finally{
+			try {
+				st.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
 		try {
 			pout = response.getWriter();
 			if(usr != null && role!= null){
@@ -73,12 +80,12 @@ public class APIServlet extends HttpServlet {
 			}else{
 				pout.print("failure"); //NO OUTPUTENCODING
 			}
-			st.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			pout.close();
 		}
-		pout.close();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

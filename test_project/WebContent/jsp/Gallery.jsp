@@ -40,8 +40,9 @@
 <div class="wrapper row3">
 	  <main class="hoc container clear" id="gallerySection"> 
 		<div style="width:100%;padding-bottom:60px;" ><h1>Gallery</h1>
-		
+		 <% if(request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").toString().equalsIgnoreCase("admin")){  %>
 		<div style="float:right;"><a class="btn" onclick="document.getElementById('upload').style.display='block'">Upload Image</a></div>
+		<%} %>
 </div>
 		
 		<div class="scrollable">

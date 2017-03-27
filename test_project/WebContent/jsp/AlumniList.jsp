@@ -94,13 +94,21 @@
 	</div>
 	<div class="wrapper row3">
 	  <main class="hoc container clear" id="AlumniListSection"> 
+		 <%
+	  if(request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").toString().equalsIgnoreCase("admin")){
+	  %>
 		<div style="width:100%;padding-bottom:60px;" ><h1>Alumni</h1><a style="float:right;" class="btn"  id="AddNewAlumni">Add Alumni</a></div>
+		<%} %>
 		<div class="scrollable">
 		<table id="alumniList" >
 		  <thead>
 		    <tr>
+		    <%
+	  if(request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").toString().equalsIgnoreCase("admin")){
+	  %>
 		      <th></th>
 		      <th></th>
+		      <%} %>
 		      <th>Name</th>
 		      <th>Batch</th>
 		      <th>Year of PassOut</th>
@@ -124,14 +132,18 @@
 				   String dobStr = (String)row.get("dobStr");
 				   String degree = (String)row.get("degree");
 				   String currentposition = (String)row.get("currentposition");
-				   long mobilenumber = (long)row.get("mobilenumber");
+				   String mobilenumber = (String)row.get("mobilenumber");
 				   String email = (String)row.get("email");
 				   
 				   %>
 				   
 			<tr>
+			<%
+	  if(request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").toString().equalsIgnoreCase("admin")){
+	  %>
 		       <td><a onClick="javascript:editAlumni(this);" value="<%=id %>"><img src="images/edit.png" style="height:17px;width:25px;"></a></td>
 		       <td><a onClick="javascript:deleteAlumni(this);" value="<%=id %>"><img src="images/delete.png" style="height:17px;width:25px;"></a></td>
+		       <%} %>
 		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=name %></td>
 		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=batchyear %></td>
 		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=passoutyear %></td>

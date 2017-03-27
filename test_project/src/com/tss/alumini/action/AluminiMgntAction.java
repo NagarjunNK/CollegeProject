@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -236,6 +235,9 @@ public class AluminiMgntAction extends Action {
     			long batchyear = res.getLong("batchyear");
     			Date batchyearDate = new Date(batchyear);
     			String batchyearStr = new SimpleDateFormat("yyyy").format(batchyearDate);
+    			if(batchyearStr.equalsIgnoreCase("1970")){
+    				batchyearStr="-";
+    			}
     			
     			long passoutyear = res.getLong("passoutyear");
     			Date passoutyearDate = new Date(passoutyear);
@@ -243,7 +245,7 @@ public class AluminiMgntAction extends Action {
     			
        			String degree = res.getString("degree");
     			String currentposition = res.getString("currentposition");
-    			long mobilenumber = res.getLong("mobilenumber");
+    			String mobilenumber = res.getString("mobilenumber");
     			String email = res.getString("email");
 
     			row.put("id", id);
@@ -309,7 +311,7 @@ public class AluminiMgntAction extends Action {
         			
            			String degree = res.getString("degree");
         			String currentposition = res.getString("currentposition");
-        			long mobilenumber = res.getLong("mobilenumber");
+        			String mobilenumber = res.getString("mobilenumber");
         			String email = res.getString("email");
 
         			row.put("id", id);
@@ -424,12 +426,16 @@ public class AluminiMgntAction extends Action {
     	String alumniid = (String)request.getParameter("alumniid");
     	String name = (String)request.getParameter("name");
 		SimpleDateFormat yearFormatter = new SimpleDateFormat("yyyy");
+		long millsBatch = 0;
 		
 		String batch = (String)request.getParameter("batch");
-		Date batchDate = (Date)yearFormatter.parse(batch);
-		long millsBatch = batchDate.getTime();
+		if(batch != null && !"".equalsIgnoreCase(batch)){
+			Date batchDate = (Date)yearFormatter.parse(batch);
+			 millsBatch = batchDate.getTime();
+		}
+		
 		String yearofpassout = (String)request.getParameter("yearofpassout");
-		Date passDate = (Date)yearFormatter.parse(batch);
+		Date passDate = (Date)yearFormatter.parse(yearofpassout);
 		long millsPass = passDate.getTime();
 		String dob = (String)request.getParameter("dob");
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -438,13 +444,15 @@ public class AluminiMgntAction extends Action {
 		String currentposition = (String)request.getParameter("currentposition");
 		String degree = (String)request.getParameter("degree");
 		
-		String mobile = request.getParameter("mobile");
-		long mobileNum = Long.parseLong(mobile);
+		String mobileNum = request.getParameter("mobile");
+		if(mobileNum.equalsIgnoreCase("")){
+			mobileNum = "-";
+		}
 		
 		String email = (String)request.getParameter("email");
 		String query = null;
 		if(alumniid.equalsIgnoreCase("") || alumniid ==null){
-	   		query = "insert into Alumni values(default,'"+name+"',"+mills+","+millsBatch+","+millsPass+",'"+degree+"','"+currentposition+"','"+email+"',"+mobileNum+");";
+	   		query = "insert into Alumni values(default,'"+name+"',"+mills+","+millsBatch+","+millsPass+",'"+degree+"','"+currentposition+"','"+email+"','"+mobileNum+"');";
 		}else{
 			query = "update Alumni set name='"+name+"',dob='"+mills+"',batchyear='"+millsBatch+"',passoutyear='"+millsPass+"',degree='"+degree+"',currentposition='"+currentposition+"',mobilenumber='"+mobileNum+"', email='"+email+"' where id='"+alumniid+"';";
 
