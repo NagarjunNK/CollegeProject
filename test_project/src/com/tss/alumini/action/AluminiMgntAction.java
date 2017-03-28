@@ -137,6 +137,14 @@ public class AluminiMgntAction extends Action {
     			closeConnection();
         		return mapping.findForward("alumniList");
     		}
+    		if("postThoughts".equalsIgnoreCase(action)){
+    			saveThoughts(request);
+    		}
+    		if("getThoughts".equalsIgnoreCase(action)){
+    			HashMap thoughts = getThoughts();
+    			response.getWriter().print(thoughts.toString());
+    		}
+    		
     	}
         return mapping.findForward("login"); // No I18N
     	
@@ -493,6 +501,64 @@ public class AluminiMgntAction extends Action {
     	}
     }
     
+    private void saveThoughts(HttpServletRequest request) throws Exception{
+    	String thoughts = (String)request.getParameter("thoughts");
+    	String userName = (String)request.getSession().getAttribute("UserName");
+		
+		String query = null;
+	
+		query = "insert into thoughts values(default,'"+thoughts+"','"+userName+"');";
+	
+		try{
+    		if(conn != null){
+    			st = conn.createStatement();
+    			int result = st.executeUpdate(query);
+    		}
+    	}catch(Exception ex){
+
+    	}finally{
+    		try {
+    			st.close();
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	}
+    }
+    
+    private HashMap getThoughts(){
+    	String title = null;
+    	String name = null;
+    	HashMap msg = new HashMap();
+    	try{
+
+    		if(conn != null){
+    			st = conn.createStatement();
+    			res = st.executeQuery("SELECT * FROM table ORDER BY RAND() LIMIT 1"); 
+    		}
+    		while(res.next()){
+    			HashMap row = new HashMap();
+    			String id  = res.getString("name");
+    			 title = res.getString("message");
+    			 msg.put(id, title);
+    		}
+    	}catch(Exception ex){
+
+    	}finally{
+    		try {
+    			res.close();
+    			st.close();
+    			conn.close();
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	}
+    	if(msg.isEmpty()){
+    		msg.put("Admin", "The biggest likelihood in studying at Madurai KamarajUniversity is that it will provide the experience they want and help them to achieve their goals.");
+    	}
+    	return msg;
+    }
     private void closeConnection() throws Exception{
     	try{
     		conn.close();

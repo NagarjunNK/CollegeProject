@@ -52,7 +52,17 @@ blockquote cite:before {
 <body id="top">
 <script>
 jQuery(document).ready(function() {
-	
+	// var timer = setInterval( getThoughts, 1000);
+	function getThoughts(){
+		jQuery.ajax('/AluminiMgnt/alumni.do?action=getThoughts', {
+		      success: function(data) {
+		    	  console.log(data);
+		      },
+		      error: function() {
+		    	  console.log("error");
+		      }
+		   });
+	}
 	 jQuery('.flexslider').flexslider({
          animation: "slide",
          slideshow:true,
@@ -122,6 +132,90 @@ jQuery(document).ready(function() {
 		      }
 		   });
 	});
+	jQuery('#history').on("click",function(){
+		 jQuery.ajax('/AluminiMgnt/jsp/History.jsp', {
+		      success: function(data) {
+		    	  $('#mainav li').each(function() {
+		    		   $(this).removeAttr('class');
+		    		});
+		    	jQuery('#aboutus').addClass('active');
+		        jQuery('#contentSection').html(data);
+		      },
+		      error: function() {
+		    	  console.log("error");
+		      }
+		   });
+	});
+	jQuery('#mission').on("click",function(){
+		 jQuery.ajax('/AluminiMgnt/jsp/MissionAndVision.jsp', {
+		      success: function(data) {
+		    	  $('#mainav li').each(function() {
+		    		   $(this).removeAttr('class');
+		    		});
+		    	jQuery('#aboutus').addClass('active');
+		        jQuery('#contentSection').html(data);
+		      },
+		      error: function() {
+		    	  console.log("error");
+		      }
+		   });
+	});
+	jQuery('#administration').on("click",function(){
+		 jQuery.ajax('/AluminiMgnt/jsp/Administration.jsp', {
+		      success: function(data) {
+		    	  $('#mainav li').each(function() {
+		    		   $(this).removeAttr('class');
+		    		});
+		    	jQuery('#aboutus').addClass('active');
+		        jQuery('#contentSection').html(data);
+		      },
+		      error: function() {
+		    	  console.log("error");
+		      }
+		   });
+	});
+	jQuery('#alumniSerivce').on("click",function(){
+		 jQuery.ajax('/AluminiMgnt/jsp/AlumniService.jsp', {
+		      success: function(data) {
+		    	  $('#mainav li').each(function() {
+		    		   $(this).removeAttr('class');
+		    		});
+		    	jQuery('#aboutus').addClass('active');
+		        jQuery('#contentSection').html(data);
+		      },
+		      error: function() {
+		    	  console.log("error");
+		      }
+		   });
+	});
+	jQuery('#contactUs').on("click",function(){
+		 jQuery.ajax('/AluminiMgnt/jsp/ContactUs.jsp', {
+		      success: function(data) {
+		    	  $('#mainav li').each(function() {
+		    		   $(this).removeAttr('class');
+		    		});
+		    	jQuery('#contactUs').addClass('active');
+		        jQuery('#contentSection').html(data);
+		      },
+		      error: function() {
+		    	  console.log("error");
+		      }
+		   });
+	});
+	jQuery('#users').on("click",function(){
+		 jQuery.ajax('/AluminiMgnt/user.do?action=userList', {
+		      success: function(data) {
+		    	  $('#mainav li').each(function() {
+		    		   $(this).removeAttr('class');
+		    		});
+		    	jQuery('#users').addClass('active');
+		        jQuery('#contentSection').html(data);
+		      },
+		      error: function() {
+		    	  console.log("error");
+		      }
+		   });
+	});
 });
 function login() {
 	var inputs = $('#loginForm').serializeArray();
@@ -141,6 +235,21 @@ function login() {
 				}
 			});
 }
+
+function postThoughts(){
+	var thoughts = jQuery("#thoughts").val();
+	var url = '/AluminiMgnt/alumni.do?action=postThoughts'+'&thoughts='+thoughts;
+	jQuery.ajax(url, {
+	      success: function(data) {
+			jQuery("#thoughtBtn").show();
+			jQuery("#thoughts").val('');
+			jQuery("#thoughtDiv").hide();
+	      },
+	      error: function() {
+	    	  console.log("error");
+	      }
+	   });
+}
 function resetForm(){
 	document.getElementById('id01').style.display='none'
 	document.getElementById('id02').style.display = 'block';
@@ -150,6 +259,7 @@ function resetForm(){
 	$("input[name='password']").val('');
 
 }
+
 function getAlumniDetails(ele){
 	var id = jQuery(ele).attr('value');
 	var url = '/AluminiMgnt/alumni.do?action=getalumnidetail'+'&id='+id;
@@ -217,30 +327,14 @@ function getEventDetails(ele){
 			}
 		}
 </script>
-<div class="wrapper row1">
+
+<div class="wrapper row1" style="background-color:white;">
 <%
 
 String role = (String)request.getSession().getAttribute("role"); 
 %>
   <header id="header" class="hoc clear" style="max-width:1040px;"> 
-  
-  	<table style="border-color:#0a0a0a;"><tr style="background-color:#0a0a0a;">
-  	<td style="border-color:#0a0a0a;width:15%;"><div><img src="images/demo/backgrounds/mdu_logo.jpg"  ></div></td>
-  	<td style="border-color:#0a0a0a;width:70%;">
-    <div id="logo"  style="text-align:center;">
-    <h1><a href="/AluminiMgnt/alumni.do?action=home">MADURAI KAMARAJ UNIVERSITY</a></h1>
-    <h1><a href="/AluminiMgnt/alumni.do?action=home">DEPARTMENT OF COMPUTER SCIENCE</a></h1>
-      <h1><a href="/AluminiMgnt/alumni.do?action=home">ALUMNI INFORMATION MANAGEMENT SYSTEM</a></h1>
-    </div>
-    </td>
-    <td style="border-color:#0a0a0a;width:15%;"> <div><img src="images/demo/backgrounds/mdu_logo.jpg"  ></div></td>
-    </tr></table>
-   <!--  <div id="quickinfo" class="fl_right">
-      <ul class="nospace inline">
-        <li><strong><a onclick="document.getElementById('id01').style.display='block'">Login</a></strong></li>|
-        <li style="margin-left:50px;"><strong><a>Register</a></strong></li>
-      </ul>
-    </div> -->
+ <div> <img src="images/demo/backgrounds/univlogo1.jpg"  ></div>
   </header>
 </div>
 
@@ -252,18 +346,20 @@ String role = (String)request.getSession().getAttribute("role");
       	<ul>
               <li><a href="#">Department</a>
               		<ul>
-              			<li><a href="#">History</a></li>
-              			<li><a href="#">Administration</a></li>
+              			<li><a  id="history">History</a></li>
+              			<li><a id="administration">Administration</a></li>
             		</ul>
               </li>
-              <li><a href="#">Mission & Goals</a></li>
-              <li><a href="#">Alumni Services</a></li>
+              <li><a id="mission">Mission & Vision</a></li>
+              <li><a id="alumniSerivce">Alumni Services</a></li>
          </ul>
       </li>
       <li id="alumni"><a>Alumni</a></li>
       <li id="event"><a>Events</a></li>
       <li id="galleries"><a>Gallery</a></li>
-      <li id="conversation"><a>Conversation</a></li>
+    <%if(role != null){ %>  <li id="conversation"><a>Conversation</a></li> <%} %>
+    <%if(role != null && role.equalsIgnoreCase("admin")){ %>  <li id="users"><a>Users</a></li> <%} %>
+    <li id="contactUs"><a>Contact Us</a></li>
       <li id="login"><%if(request.getSession().getAttribute("role") ==null){ %><a onclick="document.getElementById('id01').style.display='block'">Login</a><%}else{ %><a href="/AluminiMgnt/jsp/Logout.jsp">logout</a><% }%></li>
     </ul>
 
@@ -371,7 +467,7 @@ String role = (String)request.getSession().getAttribute("role");
       <h6 class="heading">Share your thoughts</h6>
     </div>
     <div>
-    <blockquote>
+    <blockquote id="quote">
 The biggest likelihood in studying at Madurai KamarajUniversity is that it will provide the experience they want and help them to achieve their goals.    <footer>
         <cite>
             Rajamuthu.R, 
@@ -380,7 +476,14 @@ The biggest likelihood in studying at Madurai KamarajUniversity is that it will 
         </cite>
     </footer>
     </blockquote>
-    <footer><a class="btn" href="#">Read More &raquo;</a></footer>
+    <%if(role != null && role.equalsIgnoreCase("alumni")){ %> <footer><a class="btn" id="thoughtBtn"onclick="document.getElementById('thoughtDiv').style.display='block';jQuery(this).hide();">Share your thoughts</a>
+    <div id="thoughtDiv" style="display:none;">
+	<textarea class="w3-input w3-border" style="resize:none" id="thoughts"></textarea> 
+	<br>
+	<a class="btn" onclick="postThoughts();" id="post">POST</a>
+	</div>
+	   </footer>
+	   <%} %>
 </div>
     <div class="clear"></div>
   </section>

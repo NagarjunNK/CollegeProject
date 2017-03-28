@@ -26,5 +26,10 @@
 				<forward name="conv" path="/jsp/ConversationList.jsp"></forward>
 				<forward name="conversation" path="/jsp/Conversation.jsp"></forward>
 			</action>
+			<action  path="/user"  scope="request" type="com.tss.alumini.action.UserMgntAction">
+				<forward name="userList" path="/jsp/Users.jsp"></forward>
+				<forward name="userDetail" path="/jsp/UserDetails.jsp"></forward>
+				<forward name="addNewUser" path="/jsp/AddNewUser.jsp"></forward>
+			</action>
 		</action-mappings>
 </struts-config>

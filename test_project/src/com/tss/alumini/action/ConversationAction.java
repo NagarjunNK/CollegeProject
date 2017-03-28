@@ -2,6 +2,7 @@
 package com.tss.alumini.action;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -48,10 +49,19 @@ public class ConversationAction extends Action{
     			ArrayList<HashMap> convlist = getConversationList(id);
     			request.setAttribute("conversationList", convlist);
     		}else if(action.equalsIgnoreCase("postComment")){
+    			String userName1 = (String)request.getSession().getAttribute("UserName");
+    			int user1id = getUserId(userName1);
+    			String user2idStr = request.getParameter("id");
+    			int user2id = Integer.parseInt(user2idStr);
+    			String message = request.getParameter("message");
+    			boolean status = postComment(user1id,user2id,message);
+    			ArrayList<HashMap> conv = getConversation(user1id,user2id,user1id);
+    			request.setAttribute("conversation", conv);
+    			request.setAttribute("id", user2idStr);
+    			return mapping.findForward("conversation");
     		}
     	}
 		return mapping.findForward("conv");
-
     }
 
     private int getUserId(String name){
@@ -152,32 +162,6 @@ public class ConversationAction extends Action{
 				e.printStackTrace();
 			}
     	}
-    	/*String query2 = "select DISTINCT conv.user1id, us.name,us.role  from Conversation as conv left join User as us on conv.user1id=us.id where user2id="+id+";";
-    	try{
-    		if(conn != null){
-    			st = conn.createStatement();
-    			res = st.executeQuery(query2); 
-    		}
-    		while(res.next()){
-    			int userid = res.getInt("user1id");
-    			String name = res.getString("name");
-    			String role = res.getString("role");
-    			HashMap user = new HashMap();
-    			user.put("username", name);
-    			user.put("role", role);
-    			user.put("id", userid);
-    			userList.add(user);
-    		}
-    	}catch(Exception ex){
-    		ex.printStackTrace();
-    	}finally{
-    		try {
-				closeConnection(conn);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	} */
     	return userList;
     }
     
@@ -197,11 +181,10 @@ public class ConversationAction extends Action{
     			Long time = res.getLong("time");
     			Date itemDate = new Date(time);
     			String itemDateStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(itemDate);
-    			if(user1 != currentUser){
-    				name = getUserName(user1);
-    			}else if(user2 != currentUser){
-    				name = getUserName(user2);
-    			}
+				name = getUserName(user1);
+				if(user1 == currentUser){
+    				name = "me";
+				}
     			
     			HashMap msg = new HashMap();
     			msg.put("username", name);
@@ -215,13 +198,33 @@ public class ConversationAction extends Action{
     		try {
 				closeConnection(conn);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     	}
     	return conv;
     }
     
+    private boolean postComment(int user1id, int user2id, String message) throws Exception {
+    	Date dateLong = new Date();
+		long mills = dateLong.getTime();
+    	String query ="insert into Conversation values(default,"+user1id+","+user2id+",'"+message+"',"+mills+");";
+    	System.out.println(query);
+    	try{
+    		if(conn != null){
+    			st = conn.createStatement();
+    			int result = st.executeUpdate(query);
+    		}
+    	}catch(Exception ex){
+    		ex.printStackTrace();
+    	}finally{
+    		try {
+    			st.close();
+    		} catch (SQLException e) {
+    			e.printStackTrace();
+    		}
+    	}
+    	return false;
+    }
     private void closeConnection(Connection connection) throws Exception{
     	try{
     		connection.close();
