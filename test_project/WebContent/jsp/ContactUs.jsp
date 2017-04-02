@@ -1,4 +1,4 @@
-<<script type="text/javascript">
+<script type="text/javascript">
 jQuery(document).ready(function(){
 	jQuery("#contact-form").validate();
 	jQuery('input[name="email"]').rules('add',{ 

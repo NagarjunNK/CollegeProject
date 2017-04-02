@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+
 import com.tss.db.*;
 import com.tss.general.ApplicationConfiguration;
 
@@ -45,8 +47,10 @@ public class APIServlet extends HttpServlet {
 		Statement st = null;
 		ResultSet res = null;
 		PrintWriter pout = null;
+		JSONObject respon = new JSONObject();
 		String username = 	request.getParameter("username");
 		String pwd = (String)request.getParameter("password");
+		String forwardTo = (String)request.getParameter("forwardTo");;
 		String usr = null;
 		String role = null;
 		String query = "Select * from User where name='"+username+"' and password='"+pwd+"';";
@@ -76,9 +80,15 @@ public class APIServlet extends HttpServlet {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("UserName", usr);
 				session.setAttribute("role", role);
-				pout.print("success"); //NO OUTPUTENCODING
+				respon.put("status", "success");
+				if(forwardTo != null){
+					respon.put("forwardTo", forwardTo.toString());
+					request.setAttribute("forwardTo",forwardTo );
+				}
+				pout.print(respon); //NO OUTPUTENCODING
 			}else{
-				pout.print("failure"); //NO OUTPUTENCODING
+				respon.put("status", "failure");
+				pout.print(respon); //NO OUTPUTENCODING
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

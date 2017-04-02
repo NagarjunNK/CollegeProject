@@ -30,6 +30,10 @@ public class AluminiMgntAction extends Action {
 	
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
     	String action = request.getParameter("action");
+    	String forwardTo  = request.getParameter("forwardTo");
+    	if(forwardTo != null){
+    		request.setAttribute("forwardTo", forwardTo);
+    	}
        	if(action != null){
        		try{
        			dbDconn = new DbConnection();
@@ -143,18 +147,24 @@ public class AluminiMgntAction extends Action {
     			saveThoughts(request);
     		}
     		if("getThoughts".equalsIgnoreCase(action)){
-    			HashMap thoughts = getThoughts();
+    			JSONObject thoughts = getThoughts();
 
-    			JSONObject thought = new JSONObject(thoughts);
-    			String thoughtStr = thought.toString();
+    			String thoughtStr = thoughts.toString();
     			response.setHeader("X-JSON", thoughtStr);
-
+    			response.setContentType("application/json");
     			PrintWriter writer = response.getWriter();
     			writer = response.getWriter();
     			writer.write(thoughtStr);
     			writer.flush();
 
     			return null;
+    		}
+    		if("getallthoughts".equalsIgnoreCase(action)){
+    			String query = "select * from thoughts ";
+    			ArrayList<HashMap> thoughts = getAllThoughts(query);
+    			request.setAttribute("thoughts", thoughts);
+    			closeConnection();
+        		return mapping.findForward("thoughts");
     		}
     		if("saveContactUs".equalsIgnoreCase(action)){
     			 boolean status =  saveContactUs(request);
@@ -547,21 +557,21 @@ public class AluminiMgntAction extends Action {
     	}
     }
     
-    private HashMap getThoughts(){
-    	String title = null;
+    private JSONObject getThoughts(){
+    	String message = null;
     	String name = null;
-    	HashMap msg = new HashMap();
+    	JSONObject msg = new JSONObject();
     	try{
 
     		if(conn != null){
     			st = conn.createStatement();
-    			res = st.executeQuery("SELECT * FROM table ORDER BY RAND() LIMIT 1"); 
+    			res = st.executeQuery("SELECT * FROM thoughts ORDER BY RAND() LIMIT 1"); 
     		}
     		while(res.next()){
-    			HashMap row = new HashMap();
-    			String id  = res.getString("name");
-    			 title = res.getString("message");
-    			 msg.put(id, title);
+    			 name  = res.getString("name");
+    			 message = res.getString("message");
+    			 msg.put("name", name);
+    			 msg.put("message", message);
     		}
     	}catch(Exception ex){
 
@@ -575,10 +585,43 @@ public class AluminiMgntAction extends Action {
     			e.printStackTrace();
     		}
     	}
-    	if(msg.isEmpty()){
+    	if(msg.length() == 0){
     		msg.put("Admin", "The biggest likelihood in studying at Madurai KamarajUniversity is that it will provide the experience they want and help them to achieve their goals.");
     	}
     	return msg;
+    }
+    private ArrayList<HashMap> getAllThoughts(String query){
+    	String message = null;
+    	String name = null;
+    	ArrayList<HashMap> list = new ArrayList<HashMap>();
+    	try{
+
+    		if(conn != null){
+    			st = conn.createStatement();
+    			res = st.executeQuery(query); 
+    		}
+    		while(res.next()){
+    	    	HashMap msg = new HashMap();
+    			 name  = res.getString("name");
+    			 message = res.getString("message");
+    			 msg.put("name", name);
+    			 msg.put("message", message);
+    			 list.add(msg);
+    		}
+    	}catch(Exception ex){
+
+    	}finally{
+    		try {
+    			res.close();
+    			st.close();
+    			conn.close();
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	}
+   
+    	return list;
     }
     
     private boolean saveContactUs(HttpServletRequest request) throws Exception{

@@ -20,7 +20,7 @@ public class UploadServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 		String appPath = request.getServletContext().getRealPath("");
 		String savePath = appPath + File.separator + SAVE_DIR + File.separator + "gallery";
-
+		request.setAttribute("forwardTo", "galleries");
 		File fileSaveDir = new File(savePath);
 		if (!fileSaveDir.exists()) {
 			fileSaveDir.mkdir();
@@ -31,8 +31,9 @@ public class UploadServlet extends HttpServlet {
 			fileName = new File(fileName).getName();
 			part.write(savePath + File.separator + fileName);
 			}
+		
 			PrintWriter pout = response.getWriter();
-			pout.print("success"); //NO OUTPUTENCODING
+			pout.print("success"); 
 			pout.close();
 		
 	}

@@ -28,7 +28,7 @@
 										<label><b>Select file to upload:</b></label> <input type="file" name="file" size="60" required/>
 										<br/> 
 										<div class="w3-center">
-										<button class="w3-btn w3-orange w3-text-white"	type="submit" onclick="uploadImage(this)" >Upload</button>
+										<button class="w3-btn w3-orange w3-text-white"	 onclick="uploadImage(this)" >Upload</button>
 										<button	onclick="resetUpload()"	type="button" class="w3-btn w3-grey w3-text-white">Cancel</button>
 										</div>
 									</div>
@@ -112,19 +112,18 @@
 							data : formData,
 							type : "POST",
 							processData: false,
-						    	contentType: false,
+						    contentType: false,
 							success : function(data) {
 								if (data == "success") {
 									document.getElementById('upload').style.display = 'none';
 									
-									$("body #galleries").on("load", function () { });
-									
 								} else {
 									document.getElementById('alert').style.display = 'block';
 								}
+								return true;
 							}
 						});
 			}
-			
+			return true;
 		}
 	</script>

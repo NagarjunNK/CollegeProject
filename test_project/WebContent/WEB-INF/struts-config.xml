@@ -20,6 +20,7 @@
 				<forward name="addNewAlumni" path="/jsp/AddNewAlumni.jsp"/>
 				<forward name="eventDetail" path="/jsp/EventDetails.jsp"/>
 				<forward name="alumniDetail" path="/jsp/AlumniDetails.jsp"/>
+				<forward name="thoughts" path="/jsp/Thoughts.jsp"/>
 				
 			</action>
 			<action  path="/conversation"  scope="request" type="com.tss.alumini.action.ConversationAction">

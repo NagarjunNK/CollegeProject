@@ -12,32 +12,23 @@
 	  <main class="hoc container clear" id="faqSection"> 
 	  <br>
 <br>
-	  <h7 class="heading">What is the Alumni Messaging Services?</h7>
+<h7 class="heading">How do I become a member of the DCS Alumni Association?</h7>
+   <p>     If you earned a degree from USC, congratulations! You are        automatically a member of the USC Alumni Association. It is free to join, and there are no dues (only benefits!).</p>
 
-    <p>  The Alumni Messaging Service is a safe and reliable way for you and other alumni to send email messages to individual alumni and to ad-hoc alumni groups you might create using the Alumni Directory.</p>
+<h7 class="heading">How can I contact my friends from Alumni Association?</h7>
+  <p>    Go to the Alumni Information Management System (AIMS) directory login your account, then contact your friends.</p>    
 
-<p> These message-purpose options are found in the Preferences tab of your alumni profile page</p>
-
-<p>It links with envelope icons and a prompt to "send a message." Clicking on "send a message" opens a window with a form for you to compose your message.</p>
-<br>
-<h7 class="heading">What are the purposes by using this messaging services?</h7>
-
- <p> Messaging purposes are category designations that allow you to control the types of messages you receive from others in the Alumni Association.</p>
-
-<p>They currently include: Current Opportunities, Consulting Offers, Expertise Requests, Job Inquiry, Keeping in Touch.</p>
-   <br>
-<h7 class="heading">How can send a message to a group of alumni?</h7>
-
- <p> To send an message to group of alumni clicking on the message icon and select</p>
-<br>
-<h7 class="heading">If I reply, will everyone see my response?</h7>
-
- <p> No. A reply to a message which originated in the Alumni Messaging Service will be sent back to the sender via email. There is no reply all function.</p>
-<br>
-   <h7 class="heading">If someone replies to a message I send, where will I see that reply?</h7>
-
- <p>  Replies to messages sent through the service will be emailed to the sender's preferred contact address.</p>
-   
+<h7 class="heading">How can Alumni update their personal information?</h7>  
+  <p>  They can update their information by using their login.</p>
+    
+  <h7 class="heading">  What are the personal information can update by Alumni?</h7>
+     <p> Alumni can update their E-mail ID, Address, Phone number,             
+    Job status only by using their login.</p>
+<h7 class="heading">If I forgot my Username or Password can you help me?</h7>
+   <p>  Contact Alumni relations in the Alumni Information Management    
+  System website (AIMS).
+      DCS Alumni relations was visible in the contact us page of the     
+  AIMS.</p> 
   
 	   </main>
 </div>
