@@ -1,6 +1,7 @@
 package com.tss.alumini.action;
 
 import java.util.Date;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,6 +17,7 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.json.JSONObject;
 
 import com.mysql.jdbc.Connection;
 import com.tss.db.DbConnection;
@@ -142,7 +144,26 @@ public class AluminiMgntAction extends Action {
     		}
     		if("getThoughts".equalsIgnoreCase(action)){
     			HashMap thoughts = getThoughts();
-    			response.getWriter().print(thoughts.toString());
+
+    			JSONObject thought = new JSONObject(thoughts);
+    			String thoughtStr = thought.toString();
+    			response.setHeader("X-JSON", thoughtStr);
+
+    			PrintWriter writer = response.getWriter();
+    			writer = response.getWriter();
+    			writer.write(thoughtStr);
+    			writer.flush();
+
+    			return null;
+    		}
+    		if("saveContactUs".equalsIgnoreCase(action)){
+    			 boolean status =  saveContactUs(request);
+    			 
+    			 PrintWriter writer = response.getWriter();
+     			writer = response.getWriter();
+     			writer.write(Boolean.toString(status));
+     			writer.flush();
+     			return null;
     		}
     		
     	}
@@ -558,6 +579,34 @@ public class AluminiMgntAction extends Action {
     		msg.put("Admin", "The biggest likelihood in studying at Madurai KamarajUniversity is that it will provide the experience they want and help them to achieve their goals.");
     	}
     	return msg;
+    }
+    
+    private boolean saveContactUs(HttpServletRequest request) throws Exception{
+    	boolean status = false;
+    	String name = (String) request.getParameter("name");
+    	String email = (String) request.getParameter("email");
+    	String msg = (String ) request.getParameter("msg");
+    	
+    	String query = null;
+    	
+		query = "insert into ContactUs values(default,'"+msg+"','"+name+"','"+msg+"');";
+		try{
+    		if(conn != null){
+    			st = conn.createStatement();
+    			int result = st.executeUpdate(query);
+    		}
+    		status = true;
+    	}catch(Exception ex){
+    		ex.printStackTrace();
+    	}finally{
+    		try {
+    			st.close();
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	}
+    	return status;
     }
     private void closeConnection() throws Exception{
     	try{

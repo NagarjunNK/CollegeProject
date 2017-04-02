@@ -33,7 +33,7 @@ jQuery(document).ready(function(){
 }%>
 </script>
 <div class="form-sec">
-<h2>Add New Event</h2>
+<h2>Add New User</h2>
         <form id="user-form"  method="post">
         	<input type="hidden" name="id" id="id" value="">
           <div class="block clear first">
@@ -42,7 +42,7 @@ jQuery(document).ready(function(){
           </div>
           <div class="block clear">
             <label for="role">Role</label>
-            <select name="role" id="role" class="w3-select w3-white">
+            <select name="role" id="role" class="w3-select w3-white" style="border-color: #f4f4f4;">
             	<option value="admin">admin</option>
             	<option value="faculity">faculity</option>
             	<option value="alumni">alumni</option>

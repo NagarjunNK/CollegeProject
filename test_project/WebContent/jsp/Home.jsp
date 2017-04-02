@@ -8,6 +8,7 @@
 <script src="layout/scripts/jquery.min.js"></script>
 <script src="layout/scripts/jquery.backtotop.js"></script>
 <script src="layout/scripts/jquery.dataTables.min.js"></script>
+<script src="layout/scripts/jquery.validate.min.js"></script>
 <script src="layout/scripts/jquery.mobilemenu.js"></script>
 <script src="layout/scripts/jquery.flexslider-min.js"></script>
 <%@ page import="java.util.*" %>
@@ -47,11 +48,15 @@ blockquote footer {
 blockquote cite:before {
     content: "\2013";
 }
+.error {
+	color: red;
+}
 </style>
 </head>
 <body id="top">
 <script>
 jQuery(document).ready(function() {
+	
 	// var timer = setInterval( getThoughts, 1000);
 	function getThoughts(){
 		jQuery.ajax('/AluminiMgnt/alumni.do?action=getThoughts', {
@@ -216,6 +221,14 @@ jQuery(document).ready(function() {
 		      }
 		   });
 	});
+	
+	var modal = document.getElementById('id01');
+
+	window.onclick = function(event) {
+		if (event.target == modal) {
+			resetForm();
+		}
+	}
 });
 function login() {
 	var inputs = $('#loginForm').serializeArray();
@@ -235,7 +248,10 @@ function login() {
 				}
 			});
 }
-
+function showThoughtsForm(ev){
+	document.getElementById('thoughtDiv').style.display='block';
+	jQuery(this).hide();
+}
 function postThoughts(){
 	var thoughts = jQuery("#thoughts").val();
 	var url = '/AluminiMgnt/alumni.do?action=postThoughts'+'&thoughts='+thoughts;
@@ -277,15 +293,16 @@ function getEventDetails(ele){
 	var url = '/AluminiMgnt/alumni.do?action=geteventdetail'+'&id='+id;
 	jQuery.ajax(url, {
 	      success: function(data) {
-		jQuery('#contentSection').html(data);
+			jQuery('#contentSection').html(data);
 	      },
 	      error: function() {
 	    	  console.log("error");
 	      }
 	   });
 }
+
 	</script>
-	<div id="id01" class="w3-modal">
+	 <div id="id01" class="w3-modal">
 						<div class="w3-modal-content w3-card-8 w3-animate-zoom"	style="max-width: 600px">
 							<div class="w3-center">
 								<br> <span	onclick="resetForm()"	class="w3-closebtn w3-hover-red w3-container w3-padding-8 w3-display-topright"	title="Close Modal">&times;</span>
@@ -316,17 +333,7 @@ function getEventDetails(ele){
 						</div>
 					</div>  
 					
-<script>
-		// Get the modal
-		var modal = document.getElementById('id01');
-
-		// When the user clicks anywhere outside of the modal, close it
-		window.onclick = function(event) {
-			if (event.target == modal) {
-				resetForm();
-			}
-		}
-</script>
+ 
 
 <div class="wrapper row1" style="background-color:white;">
 <%
@@ -476,14 +483,15 @@ The biggest likelihood in studying at Madurai KamarajUniversity is that it will 
         </cite>
     </footer>
     </blockquote>
-    <%if(role != null && role.equalsIgnoreCase("alumni")){ %> <footer><a class="btn" id="thoughtBtn"onclick="document.getElementById('thoughtDiv').style.display='block';jQuery(this).hide();">Share your thoughts</a>
-    <div id="thoughtDiv" style="display:none;">
-	<textarea class="w3-input w3-border" style="resize:none" id="thoughts"></textarea> 
-	<br>
-	<a class="btn" onclick="postThoughts();" id="post">POST</a>
-	</div>
-	   </footer>
-	   <%} %>
+   <%if(role != null && role.equalsIgnoreCase("alumni")){ %>
+								
+								<div id="thought" >
+									<textarea class="w3-input w3-border" style="resize: none" id="thoughts"></textarea>
+									<br> <a class="btn" >POST</a>
+
+								</div>
+								<div><a class="btn" id="share">share ur thoughts</a></div>
+								<%}%>
 </div>
     <div class="clear"></div>
   </section>

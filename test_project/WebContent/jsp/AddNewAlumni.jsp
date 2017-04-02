@@ -1,18 +1,50 @@
 <%@ page import="java.util.*" %>
 
 <script>
-$("#alumni-form").on("submit", function(){
-	var data = jQuery('#alumni-form').serialize();
-	 jQuery.ajax({
-		  url:'/AluminiMgnt/alumni.do?action=saveAlumni',
-		  data:data,
-	      success: function(data) {
-	        jQuery('#contentSection').html(data);
-	      },
-	      error: function() {
-	    	  console.log("error");
-	      }
-	   });
+jQuery(document).ready(function(){
+	var minOffset = 0, maxOffset = 200;
+
+	var thisYear = new Date().getFullYear();
+	var select = jQuery("#batch, #yearofpassout");
+
+	for (var i = minOffset; i <= maxOffset; i++) {
+	    var year = thisYear - i;
+	    $('<option>', {value: year, text: year}).appendTo(select);
+	}
+	
+	jQuery("#alumni-form").validate();
+	jQuery('input[name="name"]').rules('add',{ 
+		required: true,
+		messages:{mandatory:"Enter valid name."}
+	});
+	jQuery('input[name="email"]').rules('add',{ 
+		required: true,
+		email:true,
+		messages:{email:"Enter valid email."}
+	});
+	jQuery('input[name="batch"]').rules('add',{ 
+		digits: true,
+		messages:{digits:"Enter valid year"}
+	});
+	jQuery('input[name="mobile"]').rules('add',{ 
+		digits: true,
+		messages:{email:"Enter valid mobile number"}
+	});
+});
+jQuery("#alumni-form").on("submit", function(){
+	if(jQuery("#alumni-form").valid()){
+		var data = jQuery('#alumni-form').serialize();
+		 jQuery.ajax({
+			  url:'/AluminiMgnt/alumni.do?action=saveAlumni',
+			  data:data,
+		      success: function(data) {
+		        jQuery('#contentSection').html(data);
+		      },
+		      error: function() {
+		    	  console.log("error");
+		      }
+		   });
+	}
 	   return false;
 	 });
 <%
@@ -50,15 +82,19 @@ jQuery(document).ready(function(){
         	        	<input type="hidden" name="alumniid" id="alumniid" value="">
           <div class="block clear first">
             <label for="name">Name <span>*</span></label>
-            <input type="text" name="name" id="name" value="" size="22" required>
+            <input type="text" name="name" id="name" value="" size="22"  maxlength="255" required>
           </div>
           <div class="block clear">
             <label for="batch">Batch</label>
-            <input type="text" name="batch" id="batch" value="" size="22">
+            <select name="batch" id="batch" class="w3-select w3-white" style="border-color: #f4f4f4;">
+            	<option value="">--select batch--</option>
+            </select>
           </div>
           <div class="block clear">
             <label for="yearofpassout">Year of PassOut  <span>*</span></label>
-            <input type="text" name="yearofpassout" id="yearofpassout" value="" size="22" required>
+            <select name="yearofpassout" id="yearofpassout" class="w3-select w3-white" style="border-color: #f4f4f4;" required>
+            	<option value="">--select year of pass out--</option>
+            </select>
           </div>
           <div class="block clear">
             <label for="dob">Date of Birth <span>*</span></label>
@@ -66,19 +102,19 @@ jQuery(document).ready(function(){
           </div>
            <div class="block clear">
             <label for="currentposition">Current Position <span>*</span></label>
-            <input type="text" name="currentposition" id="currentposition" value="" size="22" required>
+            <input type="text" name="currentposition" id="currentposition" value="" size="22" maxlength="255" required>
           </div>
            <div class="block clear">
             <label for="degree">Degree<span>*</span></label>
-            <input type="text" name="degree" id="degree" value="" size="22" required>
+            <input type="text" name="degree" id="degree" value="" size="22" maxlength="255" required>
           </div>
            <div class="block clear">
             <label for="mobile">Mobile Number</label>
-            <input type="text" name="mobile" id="mobile" value="" size="22">
+            <input type="text" name="mobile" id="mobile" value="" maxlength="10" size="22">
           </div>
            <div class="block clear">
             <label for="email">Email<span>*</span></label>
-            <input type="text" name="email" id="email" value="" size="22">
+            <input type="email" name="email" id="email" value="" size="22">
           </div>
           <div>
             <input type="submit" name="submit" value="Save">

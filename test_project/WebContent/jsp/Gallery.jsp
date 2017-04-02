@@ -116,7 +116,9 @@
 							success : function(data) {
 								if (data == "success") {
 									document.getElementById('upload').style.display = 'none';
-									jQuery("#galleries").click();
+									
+									$("body #galleries").on("load", function () { });
+									
 								} else {
 									document.getElementById('alert').style.display = 'block';
 								}

@@ -1,6 +1,14 @@
 <%@ page import="java.util.*" %>
 <script>
+jQuery(document).ready(function(){
+	jQuery("#event-form").validate();
+	jQuery('input[name="name"]').rules('add',{ 
+		required: true,
+		messages:{mandatory:"Enter valid title."}
+	});
+});
 $("#event-form").on("submit", function(){
+	if(jQuery("#alumni-form").valid()){
 	var data = jQuery('#event-form').serialize();
 	 jQuery.ajax({
 		  url:'/AluminiMgnt/alumni.do?action=saveEvent',
@@ -12,6 +20,7 @@ $("#event-form").on("submit", function(){
 	    	  console.log("error");
 	      }
 	   });
+	}
 	   return false;
 	 });
 <%
@@ -41,7 +50,7 @@ jQuery(document).ready(function(){
         	<input type="hidden" name="eventid" id="eventid" value="">
           <div class="block clear first">
             <label for="name">Title <span>*</span></label>
-            <input type="text" name="name" id="name" value="" size="22" required>
+            <input type="text" name="name" id="name" value="" size="22" maxlength="255" required>
           </div>
           <div class="block clear">
             <label for="desc">Description</label>
@@ -49,7 +58,7 @@ jQuery(document).ready(function(){
           </div>
           <div class="block clear">
             <label for="place">Place  <span>*</span></label>
-            <input type="text" name="place" id="place" value="" size="22" required>
+            <input type="text" name="place" id="place" value="" size="22" maxlength="255" required>
           </div>
           <div class="block clear">
             <label for="comment">Date  <span>*</span></label>
