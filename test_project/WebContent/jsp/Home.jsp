@@ -222,14 +222,30 @@ jQuery(document).ready(function() {
 		   });
 	});
 	
-	var modal = document.getElementById('id01');
-
-	window.onclick = function(event) {
-		if (event.target == modal) {
-			resetForm();
-		}
-	}
+	jQuery("#faq").click(function(){
+		 jQuery.ajax('/AluminiMgnt/jsp/FAQ.jsp', {
+		      success: function(data) {
+		    	  $('#mainav li').each(function() {
+		    		   $(this).removeAttr('class');
+		    		});
+		    	jQuery('#faq').addClass('active');
+		        jQuery('#contentSection').html(data);
+		      },
+		      error: function() {
+		    	  console.log("error");
+		      }
+		   });
 });
+	
+});
+
+
+
+window.onclick = function(event) {
+	if (event.target == document.getElementById('id01')) {
+		resetForm();
+	}
+}
 function login() {
 	var inputs = $('#loginForm').serializeArray();
 	$
@@ -253,7 +269,7 @@ function showThoughtsForm(ev){
 	jQuery(this).hide();
 }
 function postThoughts(){
-	var thoughts = jQuery("#thoughts").val();
+	var thoughts = jQuery("#cmt").val();
 	var url = '/AluminiMgnt/alumni.do?action=postThoughts'+'&thoughts='+thoughts;
 	jQuery.ajax(url, {
 	      success: function(data) {
@@ -340,6 +356,8 @@ function getEventDetails(ele){
 
 String role = (String)request.getSession().getAttribute("role"); 
 %>
+ <div id="login" style="text-align:right;color:brown;font-size:medium;"><%if(request.getSession().getAttribute("role") ==null){ %><a onclick="document.getElementById('id01').style.display='block'">Login</a><%}else{ %><a href="/AluminiMgnt/jsp/Logout.jsp">Logout</a><% }%>&nbsp; &nbsp;</div>
+  
   <header id="header" class="hoc clear" style="max-width:1040px;"> 
  <div> <img src="images/demo/backgrounds/univlogo1.jpg"  ></div>
   </header>
@@ -357,7 +375,7 @@ String role = (String)request.getSession().getAttribute("role");
               			<li><a id="administration">Administration</a></li>
             		</ul>
               </li>
-              <li><a id="mission">Mission & Vision</a></li>
+              <li><a id="mission">Mission and Vision</a></li>
               <li><a id="alumniSerivce">Alumni Services</a></li>
          </ul>
       </li>
@@ -367,7 +385,8 @@ String role = (String)request.getSession().getAttribute("role");
     <%if(role != null){ %>  <li id="conversation"><a>Conversation</a></li> <%} %>
     <%if(role != null && role.equalsIgnoreCase("admin")){ %>  <li id="users"><a>Users</a></li> <%} %>
     <li id="contactUs"><a>Contact Us</a></li>
-      <li id="login"><%if(request.getSession().getAttribute("role") ==null){ %><a onclick="document.getElementById('id01').style.display='block'">Login</a><%}else{ %><a href="/AluminiMgnt/jsp/Logout.jsp">logout</a><% }%></li>
+    <li id="faq"><a>FAQ</a></li>
+     
     </ul>
 
   </nav>
@@ -397,7 +416,7 @@ String role = (String)request.getSession().getAttribute("role");
   </main>
 </div>
 <div class="wrapper row3">
-<table><tr><td width:33.33%>
+<table><tr><td width=33.33%>
 
   <section class="container clear" style="display:block;"> 
     <div class="sectiontitle">
@@ -432,7 +451,7 @@ String role = (String)request.getSession().getAttribute("role");
 
   </section>
 </td>
-<td width:33.33%>
+<td width=33.33%>
   <section class="hoc container clear"> 
     <div class="sectiontitle">
       <h6 class="heading">News & Announcement</h6>
@@ -468,7 +487,7 @@ String role = (String)request.getSession().getAttribute("role");
     </div>
   </section>
 </td>
-<td width:33.33%>
+<td width=33.33%>
 <section class="hoc container clear"> 
     <div class="sectiontitle">
       <h6 class="heading">Share your thoughts</h6>
@@ -483,15 +502,7 @@ The biggest likelihood in studying at Madurai KamarajUniversity is that it will 
         </cite>
     </footer>
     </blockquote>
-   <%if(role != null && role.equalsIgnoreCase("alumni")){ %>
-								
-								<div id="thought" >
-									<textarea class="w3-input w3-border" style="resize: none" id="thoughts"></textarea>
-									<br> <a class="btn" >POST</a>
-
-								</div>
-								<div><a class="btn" id="share">share ur thoughts</a></div>
-								<%}%>
+  
 </div>
     <div class="clear"></div>
   </section>
