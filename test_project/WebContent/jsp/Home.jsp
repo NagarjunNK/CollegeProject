@@ -63,7 +63,7 @@ jQuery(document).ready(function() {
 		 jQuery
 		 jQuery('#'+forwardTo).click();
 	 }
-	 var timer = setInterval( getThoughts, 5000);
+	 var timer = setInterval( getThoughts, 10000);
 	 jQuery('.flexslider').flexslider({
          animation: "slide",         slideshow:true,         slideshowSpeed:3000,         controlNav: false,         controlsContainer: ".flex-container",
          start: function(slider) {
@@ -74,6 +74,9 @@ jQuery(document).ready(function() {
          }
     });
 });
+window.onclick = function(event) {
+	if (event.target == document.getElementById('id01')) {		resetForm();	}
+}
 	</script>
 	 <div id="id01" class="w3-modal">
 						<div class="w3-modal-content w3-card-8 w3-animate-zoom"	style="max-width: 600px">
@@ -133,13 +136,13 @@ String role = (String)request.getSession().getAttribute("role");
       <li id="event" onclick="loadEvents();"><a>Events</a></li>
       <li id="galleries" onclick="loadGallery();"><a>Gallery</a></li>
     <%if(role != null){ %>  <li id="conversation" onclick="loadConv();"><a>Conversation</a></li> <%} %>
+    <%if(role != null && role.equalsIgnoreCase("admin")){ %>  <li id="annoucement" onclick="loadAnnouncement();"><a>Announcements</a></li> <%} %>
     <%if(role != null && role.equalsIgnoreCase("admin")){ %>  <li id="users" onclick="loadUser();"><a>Users</a></li> <%} %>
     <li id="contactUs" onclick="loadContactUs();"><a>Contact Us</a></li>
     <li id="faq" onclick="loadFAQ();"><a>FAQ</a></li>
     </ul>
   </nav>
 </div>
-<%=request.getAttribute("forwardTo") %>
 <div id="galleryDiv"></div>
 <div id="contentSection">
 <div class="flexslider" style="width:1905px;max-height:380px;">
@@ -196,14 +199,14 @@ String role = (String)request.getSession().getAttribute("role");
  <marquee direction="up" scrollamount="2" onmouseover="this.stop();" onmouseout="this.start();"  style="height:180px;">
 			<ul>
 				<%
-			ArrayList event = (ArrayList)request.getAttribute("event");
-           if(event != null && !event.isEmpty()){
-        	   for(int i=0; i<event.size(); i++){
-        		   HashMap row = (HashMap)event.get(i);
-        		   String msg = (String)row.get("title");
-        		   int id = (int)row.get("id");
+			ArrayList announcement = (ArrayList)request.getAttribute("announcements");
+           if(announcement != null && !announcement.isEmpty()){
+        	   for(int i=0; i<announcement.size(); i++){
+        		   HashMap row = (HashMap)announcement.get(i);
+        		   String msg = (String)row.get("message");
+        		   long id = (long)row.get("id");
         		    %>
-				<li><a onclick="javascript:getEventDetails(this);" value="<%=id%>"><%=msg %></a></li>
+				<li><%=msg %></li>
 				 <%      	   }
            }else{
 			%>

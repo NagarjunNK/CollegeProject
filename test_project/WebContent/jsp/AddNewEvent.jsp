@@ -1,27 +1,19 @@
 <%@ page import="java.util.*" %>
 <script>
-jQuery(document).ready(function(){
-	jQuery("#event-form").validate();
-	jQuery('input[name="name"]').rules('add',{ 
-		required: true,
-		messages:{mandatory:"Enter valid title."}
-	});
-});
+
 $("#event-form").on("submit", function(){
-	if(jQuery("#alumni-form").valid()){
 	var data = jQuery('#event-form').serialize();
 	 jQuery.ajax({
 		  url:'/AluminiMgnt/alumni.do?action=saveEvent',
 		  data:data,
-	      success: function(data) {
-	        jQuery('#contentSection').html(data);
+	      success: function(data1) {
+	    	  {{debugger}}
+	        jQuery('#contentSection').html(data1);
 	      },
 	      error: function() {
 	    	  console.log("error");
 	      }
 	   });
-	}
-	   return false;
 	 });
 <%
 ArrayList event = (ArrayList)request.getAttribute("event");

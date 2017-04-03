@@ -14,7 +14,7 @@
 	</style>
 	<script>
 	jQuery(document).ready(function() {
-	    jQuery('#events').DataTable({ "info": false});
+	    jQuery('#eventsList').DataTable({ "info": false});
 	    jQuery('#AddNewEvent').on("click",function(){
 			 jQuery.ajax('/AluminiMgnt/alumni.do?action=addNewEvent', {
 			      success: function(data) {
@@ -45,7 +45,7 @@
 	
 	function editEvent(ele){
 		var id = jQuery(ele).attr('value');
-		var url = '/AluminiMgnt/alumni.do?action=editEvent'+'&id='+id;
+		var url = '/AluminiMgnt/alumni.do?action=editEvent&id='+id;
 		jQuery.ajax(url, {
 		      success: function(data) {
 			jQuery('#EventSection').html(data);
@@ -58,7 +58,7 @@
 	function deleteEvent(ele){
 		if(confirm("Are you sure?")){
 			var id = jQuery(ele).attr('value');
-			var url = '/AluminiMgnt/alumni.do?action=deleteEvent'+'&id='+id;
+			var url = '/AluminiMgnt/alumni.do?action=deleteEvent&id='+id;
 			jQuery.ajax(url, {
 			      success: function(data) {
 					  jQuery('#contentSection').html(data);
@@ -72,7 +72,7 @@
 	}
 	function getEventDetails(ele){
 		var id = jQuery(ele).attr('value');
-		var url = '/AluminiMgnt/alumni.do?action=geteventdetail'+'&id='+id;
+		var url = '/AluminiMgnt/alumni.do?action=geteventdetail&id='+id;
 		jQuery.ajax(url, {
 		      success: function(data) {
 			jQuery('#EventContent').html(data);
@@ -101,7 +101,7 @@
 		<div style="width:100%;padding-bottom:60px;" ><h1>Events</h1><a style="float:right;" class="btn" id="AddNewEvent">Add Event</a></div>
 		<%} %>
 		<div class="scrollable">
-		<table id="events" >
+		<table id="eventsList" >
 		  <thead>
 		    <tr>
 		    <%

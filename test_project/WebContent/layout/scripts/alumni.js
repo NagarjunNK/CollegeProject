@@ -24,9 +24,7 @@ function getEventDetails(ele){
 function resetForm(){
 	document.getElementById('id01').style.display='none';	document.getElementById('id02').style.display = 'block';	document.getElementById('id03').style.display = 'none';	document.getElementById('alert').style.display='none';	jQuery("input[name='username']").val('');	jQuery("input[name='password']").val('');
 }
-window.onclick = function(event) {
-	if (event.target == document.getElementById('id01')) {		resetForm();	}
-}
+
 function login() {
 	var inputs = $('#loginForm').serializeArray();
 	$.ajax({				url : "/AluminiMgnt/login",				
@@ -234,6 +232,20 @@ function read(){
 	    	  $('#mainav li').each(function() {
 	    		   $(this).removeAttr('class');
 	    		});
+	        jQuery('#contentSection').html(data);
+	      },
+	      error: function() {
+	    	  console.log("error");
+	      }
+	   });
+}
+function loadAnnouncement(){
+	 jQuery.ajax('/AluminiMgnt/alumni.do?action=getallannouncement', {
+	      success: function(data) {
+	    	  $('#mainav li').each(function() {
+	    		   $(this).removeAttr('class');
+	    		});
+	    	  jQuery('#annoucement').addClass('active');
 	        jQuery('#contentSection').html(data);
 	      },
 	      error: function() {

@@ -45,11 +45,11 @@ public class AluminiMgntAction extends Action {
        			String alumniQuery ="SELECT * FROM Alumni";
     			ArrayList<HashMap> birthday = getTodayBirthDayAlumniList(alumniQuery);
     			
-    			String eventQuery = "SELECT * FROM Events";
-    			ArrayList<HashMap> event = getTodayEvents(eventQuery);
+    			String eventQuery = "SELECT * FROM Announcement";
+    			ArrayList<HashMap> announcement = getAnnouncement(eventQuery);
 
     			request.setAttribute("birthday", birthday);
-    			request.setAttribute("event", event);
+    			request.setAttribute("announcements", announcement);
     			closeConnection();	
        	        return mapping.findForward("home"); // No I18N
        			
@@ -175,7 +175,42 @@ public class AluminiMgntAction extends Action {
      			writer.flush();
      			return null;
     		}
-    		
+    		if("getallannouncement".equalsIgnoreCase(action)){
+    			String query = "select * from Announcement ";
+    			ArrayList<HashMap> announcement = getAnnouncement(query);
+    			request.setAttribute("announcements", announcement);
+    			closeConnection();
+        		return mapping.findForward("announcement");
+    		}
+    		if("saveAnnouncement".equalsIgnoreCase(action)){
+    			saveAnnouncement(request);
+        		String query = "select * from Announcement";
+    			ArrayList<HashMap> announcements = getAnnouncement(query);
+    			request.setAttribute("announcements", announcements);
+    			closeConnection();
+        		return mapping.findForward("announcement");
+    		}
+    		if("addNewAnnouncement".equalsIgnoreCase(action)){
+        		return mapping.findForward("addNewAnnouncement");
+    		}
+    		if("editAnnouncement".equalsIgnoreCase(action)){
+    			String id = (String) request.getParameter("id");
+    			String query = "select * from Announcement where id="+id;
+    			ArrayList<HashMap> announcements = getAnnouncement(query);
+    			request.setAttribute("oneannouncement", announcements);
+    			closeConnection();
+        		return mapping.findForward("addNewAnnouncement");
+    		}
+    		if("deleteAnnouncement".equalsIgnoreCase(action)){
+    			String id = (String) request.getParameter("id");
+    			String deleteQuery = "delete from Announcement where id='"+id+"';";
+    			deleteEntity(deleteQuery);
+    			String query = "select * from Announcement";
+    			ArrayList<HashMap> announcements = getAnnouncement(query);
+    			request.setAttribute("announcements", announcements);
+    			closeConnection();
+        		return mapping.findForward("announcement");
+    		}
     	}
         return mapping.findForward("login"); // No I18N
     	
@@ -219,6 +254,33 @@ public class AluminiMgntAction extends Action {
     	}
     	return events;
     }
+    private void saveAnnouncement(HttpServletRequest request) throws Exception{
+    	String id = (String)request.getParameter("id");
+    	String message = (String)request.getParameter("message");
+		
+		String query = null;
+		if(id.equalsIgnoreCase("") || id ==null){
+			query = "insert into Announcement values(default,'"+message+"');";
+		}else{
+			query = "update Announcement set message='"+message+"' where id='"+id+"';";
+
+		}
+		try{
+    		if(conn != null){
+    			st = conn.createStatement();
+    			int result = st.executeUpdate(query);
+    		}
+    	}catch(Exception ex){
+
+    	}finally{
+    		try {
+    			st.close();
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	}
+    }
     
     private ArrayList<HashMap> getAnnouncement(String query){
     	
@@ -235,7 +297,7 @@ public class AluminiMgntAction extends Action {
     			String title = res.getString("message");
     			
     			row.put("id", id);
-    			row.put("title", title);
+    			row.put("message", title);
     			
     			announcement.add(row);
     		}

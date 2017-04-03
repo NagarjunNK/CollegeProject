@@ -46,7 +46,7 @@
 	<div class="wrapper row3">
 	  <main class="hoc container clear" id="EventSection"> 
 		<div class="scrollable">
-		<div style="width:100%;padding-bottom:60px;" ><h1>Events</h1><a style="float:right;" class="btn" id="share">Share Your Thoughts</a></div>
+		<div style="width:100%;padding-bottom:60px;" ><h1>Alumni Thoughts</h1><a style="float:right;" class="btn" id="share">Share Your Thoughts</a></div>
 		  <%
 				ArrayList thoughts = (ArrayList)request.getAttribute("thoughts");
 		   if(thoughts != null && !thoughts.isEmpty()){
