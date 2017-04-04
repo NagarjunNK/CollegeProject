@@ -694,7 +694,7 @@ public class AluminiMgntAction extends Action {
     	
     	String query = null;
     	
-		query = "insert into ContactUs values(default,'"+msg+"','"+name+"','"+msg+"');";
+		query = "insert into ContactUs values(default,'"+msg+"','"+name+"','"+email+"');";
 		try{
     		if(conn != null){
     			st = conn.createStatement();
