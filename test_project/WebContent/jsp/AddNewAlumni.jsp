@@ -59,10 +59,11 @@ if(alumni != null && !alumni.isEmpty()){
 		   String dobStr = (String)row.get("dobStr");
 		   String degree = (String)row.get("degree");
 		   String currentposition = (String)row.get("currentposition");
-		   long mobilenumber = (long)row.get("mobilenumber");
+		   String mobilenumber = (String)row.get("mobilenumber");
 		   String email = (String)row.get("email");
 %>
 jQuery(document).ready(function(){
+	jQuery('#alumniid').val('<%=id%>');
 	jQuery('#name').val('<%=name%>');
 	jQuery('#batch').val('<%=batchyear%>');
 	jQuery('#yearofpassout').val('<%=passoutyear%>');

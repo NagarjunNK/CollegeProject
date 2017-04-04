@@ -1,19 +1,35 @@
 <%@ page import="java.util.*" %>
 <script>
-
+jQuery(document).ready(function(){
+	jQuery("#event-form").validate();
+	jQuery('input[name="name"]').rules('add',{ 
+		required: true,
+		messages:{mandatory:"This field is required."}
+	});
+	jQuery('input[name="place"]').rules('add',{ 
+		required: true,
+		messages:{mandatory:"This field is required."}
+	});
+	jQuery('input[name="date"]').rules('add',{ 
+		required: true,
+		messages:{mandatory:"This field is required."}
+	});
+});
 $("#event-form").on("submit", function(){
-	var data = jQuery('#event-form').serialize();
+	if(jQuery("#event-form").valid()){
+	var formdata = jQuery('#event-form').serialize();
 	 jQuery.ajax({
 		  url:'/AluminiMgnt/alumni.do?action=saveEvent',
-		  data:data,
-	      success: function(data1) {
-	    	  {{debugger}}
-	        jQuery('#contentSection').html(data1);
+		  data:formdata,
+	      success: function(data) {
+	        jQuery('#contentSection').html(data);
 	      },
 	      error: function() {
 	    	  console.log("error");
 	      }
 	   });
+	}
+	return false;
 	 });
 <%
 ArrayList event = (ArrayList)request.getAttribute("event");

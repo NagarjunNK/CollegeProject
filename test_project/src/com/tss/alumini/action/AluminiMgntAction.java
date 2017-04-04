@@ -363,7 +363,7 @@ public class AluminiMgntAction extends Action {
     			System.out.println("AlumniList:"+alumniList);
     		}
     	}catch(Exception ex){
-
+    		ex.printStackTrace();
     	}finally{
     		try {
     			res.close();

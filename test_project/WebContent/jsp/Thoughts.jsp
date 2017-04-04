@@ -64,9 +64,10 @@
 			<br>
 				   
 	  <%      	   }
-		   }
+		   }else{
 				%>
-		  
+				<p>No Thoughts..!!></p>
+		  <%} %>
 	      </div>
 	      </main>
 	</div>

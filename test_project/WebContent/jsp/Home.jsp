@@ -62,7 +62,7 @@ jQuery(document).ready(function() {
 	 if(forwardTo){
 		 jQuery
 		 jQuery('#'+forwardTo).click();
-	 }
+	 } 
 	 var timer = setInterval( getThoughts, 10000);
 	 jQuery('.flexslider').flexslider({
          animation: "slide",         slideshow:true,         slideshowSpeed:3000,         controlNav: false,         controlsContainer: ".flex-container",
@@ -129,7 +129,7 @@ String role = (String)request.getSession().getAttribute("role");
             		</ul>
               </li>
               <li><a id="mission" onclick="loadlMission();">Mission & Vision</a></li>
-              <li><a id="alumniSerivce" onclick="loadlAlumniService();">Alumni Services</a></li>
+              <li><a id="alumniSerivce" onclick="loadlAlumniService();">Career Services</a></li>
          </ul>
       </li>
       <li id="alumni" onclick="loadAlumni();"><a>Alumni</a></li>
@@ -146,7 +146,7 @@ String role = (String)request.getSession().getAttribute("role");
 <div id="galleryDiv"></div>
 <div id="contentSection">
 <div class="flexslider" style="width:1905px;max-height:380px;">
-	<ul class="slides">  <li> <img src="images/demo/backgrounds/mkuniv2.jpg" style="width:1905px;max-height:380px;"/> </li> <li> <img src="images/demo/backgrounds/mkuniv2.jpg" style="width:1905px;max-height:380px;"/> </li>   <li> <img src="images/demo/backgrounds/mkuniv2.jpg" style="width:1905px;max-height:380px;"/> </li> </ul>
+	<ul class="slides">  <li> <img src="images/demo/backgrounds/welcome11.jpg" style="width:1905px;max-height:380px;"/> </li> <li> <img src="images/demo/backgrounds/JAYA main logo.jpg" style="width:1905px;max-height:380px;"/> </li>   <li> <img src="images/demo/backgrounds/welcome.jpg" style="width:1905px;max-height:380px;"/> </li> </ul>
 </div>
 <div class="wrapper bgded overlay"  style="background-color: black;">
   <div class="hoc container clear"> 
