@@ -83,17 +83,17 @@ jQuery(document).ready(function(){
         	        	<input type="hidden" name="alumniid" id="alumniid" value="">
           <div class="block clear first">
             <label for="name">Name <span>*</span></label>
-            <input type="text" name="name" id="name" value="" size="22"  maxlength="255" required>
+            <input type="text" name="name" id="name" value="" size="22"  maxlength="255" required style="border-color: #c5c5c5;">
           </div>
           <div class="block clear">
             <label for="batch">Batch</label>
-            <select name="batch" id="batch" class="w3-select w3-white" style="border-color: #f4f4f4;">
+            <select name="batch" id="batch" class="w3-select w3-white" style="border-color: #c5c5c5;">
             	<option value="">--select batch--</option>
             </select>
           </div>
           <div class="block clear">
             <label for="yearofpassout">Year of PassOut  <span>*</span></label>
-            <select name="yearofpassout" id="yearofpassout" class="w3-select w3-white" style="border-color: #f4f4f4;" required>
+            <select name="yearofpassout" id="yearofpassout" class="w3-select w3-white" style="border-color: #c5c5c5;" required>
             	<option value="">--select year of pass out--</option>
             </select>
           </div>
@@ -103,19 +103,19 @@ jQuery(document).ready(function(){
           </div>
            <div class="block clear">
             <label for="currentposition">Current Position <span>*</span></label>
-            <input type="text" name="currentposition" id="currentposition" value="" size="22" maxlength="255" required>
+            <input type="text" name="currentposition" id="currentposition" value="" size="22" maxlength="255" required style="border-color: #c5c5c5;">
           </div>
            <div class="block clear">
             <label for="degree">Degree<span>*</span></label>
-            <input type="text" name="degree" id="degree" value="" size="22" maxlength="255" required>
+            <input type="text" name="degree" id="degree" value="" size="22" maxlength="255" required style="border-color: #c5c5c5;">
           </div>
            <div class="block clear">
             <label for="mobile">Mobile Number</label>
-            <input type="text" name="mobile" id="mobile" value="" maxlength="10" size="22">
+            <input type="text" name="mobile" id="mobile" value="" maxlength="10" size="22" style="border-color: #c5c5c5;">
           </div>
            <div class="block clear">
             <label for="email">Email<span>*</span></label>
-            <input type="email" name="email" id="email" value="" size="22">
+            <input type="email" name="email" id="email" value="" size="22" style="border-color: #c5c5c5;">
           </div>
           <div>
             <input type="submit" name="submit" value="Save">

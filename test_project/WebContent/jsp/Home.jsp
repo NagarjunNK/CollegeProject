@@ -274,6 +274,5 @@ String role = (String)request.getSession().getAttribute("role");
   </div>
 </div>
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
-
 </body>
 </html>

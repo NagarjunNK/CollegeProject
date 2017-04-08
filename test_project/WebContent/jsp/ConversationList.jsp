@@ -13,6 +13,14 @@ jQuery(document).ready(function() {
 			    	  console.log("error");
 			      }
 			   });
+			 jQuery.ajax('/AluminiMgnt/conversation.do?action=markAsRead&id='+val, {
+				 success: function(data) {
+				     
+				      },
+			      error: function() {
+			    	  console.log("error");
+			      }
+			   });
 		});
 		jQuery("#postComment").on("click",function(){
 			var comment = jQuery("#comment").val();
@@ -29,6 +37,10 @@ jQuery(document).ready(function() {
 					 console.log("error");
 				}
 			});
+		});
+		jQuery(".w3-hover-grey").on("click",function(){
+			jQuery(".w3-grey").removeClass("w3-grey").addClass("w3-hover-grey");
+			jQuery(this).addClass("w3-grey");
 		});
 });
 	
@@ -48,6 +60,15 @@ jQuery(document).ready(function() {
 	</div>
 <div class="wrapper row3">
 	  <main class="hoc container clear" id="ConvSection"> 
+	  <%
+		int newMsgCount = (int)request.getAttribute("newMessageCount");
+		if( newMsgCount>0){
+		%>
+	  <div class="w3-panel w3-green w3-display-container">
+	  		<span onclick="this.parentElement.style.display='none'" class="w3-button w3-green w3-large w3-display-topright"><a>x</a></span>
+			<div class="w3-padding-16" style="text-align:center;">You have <div class="w3-badge"><%=newMsgCount %></div> new message </div>
+	</div>
+	<%} %>
 <%
 ArrayList userList = (ArrayList)request.getAttribute("conversationList");
 if(userList != null && !userList.isEmpty()){

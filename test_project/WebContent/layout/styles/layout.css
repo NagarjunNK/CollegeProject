@@ -12,6 +12,7 @@ File: Layout CSS
 @import url("custom.flexslider.css");
 @import url("framework.css");
 
+a {cursor: pointer;}
 
 /* Rows
 --------------------------------------------------------------------------------------------------------------- */

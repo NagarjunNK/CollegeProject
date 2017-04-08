@@ -58,19 +58,19 @@ jQuery(document).ready(function(){
         	<input type="hidden" name="eventid" id="eventid" value="">
           <div class="block clear first">
             <label for="name">Title <span>*</span></label>
-            <input type="text" name="name" id="name" value="" size="22" maxlength="255" required>
+            <input type="text" name="name" id="name" value="" size="22" maxlength="255" required style="border-color: #c5c5c5;">
           </div>
           <div class="block clear">
             <label for="desc">Description</label>
-            <input type="text" name="desc" id="desc" value="" size="22">
+            <input type="text" name="desc" id="desc" value="" size="22" style="border-color: #c5c5c5;">
           </div>
           <div class="block clear">
             <label for="place">Place  <span>*</span></label>
-            <input type="text" name="place" id="place" value="" size="22" maxlength="255" required>
+            <input type="text" name="place" id="place" value="" size="22" maxlength="255" required style="border-color: #c5c5c5;">
           </div>
           <div class="block clear">
             <label for="comment">Date  <span>*</span></label>
-            <input type="date" name="date" id="date" value="" size="22" required>
+            <input type="date" name="date" id="date" value="" size="22" required style="border-color: #c5c5c5;">
           </div>
           <div>
             <input type="submit" name="submit" value="Save">

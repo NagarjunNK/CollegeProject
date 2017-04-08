@@ -94,7 +94,7 @@
 	  </section>
 	</div>
 	<div class="wrapper row3">
-	  <main class="hoc container clear" id="EventSection"> 
+	  <main class="hoc container clear" id="EventSection" style="max-width: 1115px;"> 
 	  <%
 	  if(request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").toString().equalsIgnoreCase("admin")){
 	  %>
@@ -107,13 +107,13 @@
 		    <%
 	  if(request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").toString().equalsIgnoreCase("admin")){
 	  %>
-		      <th></th>
-		      <th></th>
+		      <th style="width:5%;border-color: #c5c5c5;"></th>
+		      <th style="width:5%;border-color: #c5c5c5;"></th>
 		      <%} %>
-		      <th>Title</th>
-		      <th>Description</th>
-		      <th>Place</th>
-		      <th>Date</th>
+		      <th style="width:30%;border-color: #c5c5c5;">Title</th>
+		      <th style="width:30%;border-color: #c5c5c5;">Description</th>
+		      <th style="width:20%;border-color: #c5c5c5;">Place</th>
+		      <th style="width:10%;border-color: #c5c5c5;">Date</th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -132,13 +132,13 @@
 			<%
 	  if(request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").toString().equalsIgnoreCase("admin")){
 	  %>
-		       <td><a onClick="javascript:editEvent(this);" value="<%=id %>"><img src="images/edit.png" style="height:17px;width:25px;" ></a></td>
-		       <td><a onClick="javascript:deleteEvent(this);" value="<%=id %>"><img src="images/delete.png" style="height:17px;width:25px;" ></a></td>
+		       <td style="width:5%;border-color: #c5c5c5;"><a onClick="javascript:editEvent(this);" value="<%=id %>"><img src="images/edit.png" style="height:17px;width:25px;" ></a></td>
+		       <td style="width:5%;border-color: #c5c5c5;"><a onClick="javascript:deleteEvent(this);" value="<%=id %>"><img src="images/delete.png" style="height:17px;width:25px;" ></a></td>
 		       <%} %>
-		      <td onclick="javascript:getEventDetails(this);" value="<%=id %>"><%=title %></td>
-		      <td onclick="javascript:getEventDetails(this);" value="<%=id %>"><%=desc %></td>
-		      <td onclick="javascript:getEventDetails(this);" value="<%=id %>"><%=place %></td>
-		      <td onclick="javascript:getEventDetails(this);" value="<%=id %>"><%=time %></td>
+		      <td onclick="javascript:getEventDetails(this);" value="<%=id %>" style="width:30%;border-color: #c5c5c5;"><%=title %></td>
+		      <td onclick="javascript:getEventDetails(this);" value="<%=id %>" style="width:30%;border-color: #c5c5c5;"><%=desc %></td>
+		      <td onclick="javascript:getEventDetails(this);" value="<%=id %>" style="width:20%;border-color: #c5c5c5;"><%=place %></td>
+		      <td onclick="javascript:getEventDetails(this);" value="<%=id %>" style="width:10%;border-color: #c5c5c5;"><%=time %></td>
 		    </tr>
 				   
 	  <%      	   }

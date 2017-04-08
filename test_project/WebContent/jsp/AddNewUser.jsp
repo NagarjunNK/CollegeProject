@@ -38,11 +38,11 @@ jQuery(document).ready(function(){
         	<input type="hidden" name="id" id="id" value="">
           <div class="block clear first">
             <label for="name">User Name <span>*</span></label>
-            <input type="text" name="name" id="name" value="" size="22" required>
+            <input type="text" name="name" id="name" value="" size="22" required style="border-color: #c5c5c5;">
           </div>
           <div class="block clear">
             <label for="role">Role</label>
-            <select name="role" id="role" class="w3-select w3-white" style="border-color: #f4f4f4;">
+            <select name="role" id="role" class="w3-select w3-white" style="border-color: #c5c5c5;">
             	<option value="admin">admin</option>
             	<option value="faculity">faculity</option>
             	<option value="alumni">alumni</option>
@@ -51,7 +51,7 @@ jQuery(document).ready(function(){
           </div>
           <div class="block clear">
             <label for="place">Password  <span>*</span></label>
-            <input type="password" name="password" id="password" value="" size="22" required>
+            <input type="password" name="password" id="password" value="" size="22" required style="border-color: #c5c5c5;">
           </div>
           <div>
             <input type="submit" name="submit" value="Save">

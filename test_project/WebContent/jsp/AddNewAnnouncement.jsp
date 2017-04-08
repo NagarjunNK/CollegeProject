@@ -36,7 +36,7 @@ jQuery(document).ready(function(){
         	<input type="hidden" name="id" id="id" value="">
           <div class="block clear first">
             <label for="name">Announcement <span>*</span></label>
-            <textarea rows="2" cols="10" id="message" name="message" required></textarea>
+            <textarea rows="2" cols="10" id="message" name="message" required style="border-color: #c5c5c5;"></textarea>
           </div>
           <div>
             <input type="submit" name="submit" value="Save">

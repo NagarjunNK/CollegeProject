@@ -93,7 +93,7 @@
 	  </section>
 	</div>
 	<div class="wrapper row3">
-	  <main class="hoc container clear" id="AlumniListSection"> 
+	  <main class="hoc container clear" id="AlumniListSection" style="max-width: 1115px;"> 
 		 <%
 	  if(request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").toString().equalsIgnoreCase("admin")){
 	  %>
@@ -106,17 +106,17 @@
 		    <%
 	  if(request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").toString().equalsIgnoreCase("admin")){
 	  %>
-		      <th></th>
-		      <th></th>
+		      <th style="width:5%;border-color: #c5c5c5;"></th>
+		      <th style="width:5%;border-color: #c5c5c5;"></th>
 		      <%} %>
-		      <th>Name</th>
-		      <th>Batch</th>
-		      <th>Year of PassOut</th>
-		      <th>Date of Birth</th>
-		      <th>Degree</th>
-		      <th>Current Position</th>
-		      <th>Mobile Number</th>
-		      <th>Email</th>		      
+		      <th style="width:10%;border-color: #c5c5c5;">Name</th>
+		      <th style="width:8%;border-color: #c5c5c5;">Batch</th>
+		      <th style="width:8%;border-color: #c5c5c5;">Year of PassOut</th>
+		      <th style="width:12%;border-color: #c5c5c5;">Date of Birth</th>
+		      <th style="width:12%;border-color: #c5c5c5;">Degree</th>
+		      <th  style="width:15%;border-color: #c5c5c5;">Current Position</th>
+		      <th style="width:10%;border-color: #c5c5c5;">Mobile Number</th>
+		      <th style="width:15%;border-color: #c5c5c5;">Email</th>		      
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -141,17 +141,17 @@
 			<%
 	  if(request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").toString().equalsIgnoreCase("admin")){
 	  %>
-		       <td><a onClick="javascript:editAlumni(this);" value="<%=id %>"><img src="images/edit.png" style="height:17px;width:25px;"></a></td>
-		       <td><a onClick="javascript:deleteAlumni(this);" value="<%=id %>"><img src="images/delete.png" style="height:17px;width:25px;"></a></td>
+		       <td style="width:5%;border-color: #c5c5c5;"><a onClick="javascript:editAlumni(this);" value="<%=id %>"><img src="images/edit.png" style="height:17px;width:25px;"></a></td>
+		       <td style="width:5%;border-color: #c5c5c5;"><a onClick="javascript:deleteAlumni(this);" value="<%=id %>"><img src="images/delete.png" style="height:17px;width:25px;"></a></td>
 		       <%} %>
-		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=name %></td>
-		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=batchyear %></td>
-		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=passoutyear %></td>
-		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=dobStr %></td>
-		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=degree %></td>
-		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=currentposition %></td>
-		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=mobilenumber %></td>
-		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>"><%=email %></td>
+		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>" style="width:10%;border-color: #c5c5c5;"><%=name %></td>
+		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>" style="width:8%;border-color: #c5c5c5;"><%=batchyear %></td>
+		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>" style="width:8%;border-color: #c5c5c5;"><%=passoutyear %></td>
+		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>" style="width:12%;border-color: #c5c5c5;"><%=dobStr %></td>
+		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>" style="width:12%;border-color: #c5c5c5;"><%=degree %></td>
+		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>" style="width:15%;border-color: #c5c5c5;"><%=currentposition %></td>
+		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>" style="width:10%;border-color: #c5c5c5;"><%=mobilenumber %></td>
+		      <td onclick="javascript:getAlumniDetails(this);" value="<%=id %>" style="width:15%;border-color: #c5c5c5;"><%=email %></td>
 
 		    </tr>
 				   

@@ -46,7 +46,9 @@ public class ConversationAction extends Action{
     		if(action.equalsIgnoreCase("getconversationlist")){
     			String userName1 = (String)request.getSession().getAttribute("UserName");
     			int id = getUserId(userName1);
+    			int count = getNewMessageCount(id);
     			ArrayList<HashMap> convlist = getConversationList(id);
+    			request.setAttribute("newMessageCount", count);
     			request.setAttribute("conversationList", convlist);
     		}else if(action.equalsIgnoreCase("postComment")){
     			String userName1 = (String)request.getSession().getAttribute("UserName");
@@ -59,6 +61,13 @@ public class ConversationAction extends Action{
     			request.setAttribute("conversation", conv);
     			request.setAttribute("id", user2idStr);
     			return mapping.findForward("conversation");
+    		}else if(action.equalsIgnoreCase("markAsRead")){
+    			String userName2 = (String)request.getSession().getAttribute("UserName");
+    			int user2id = getUserId(userName2);
+    			String user1idStr = request.getParameter("id");
+    			int user1id = Integer.parseInt(user1idStr);
+    			markAsRead(user1id,user2id);
+    			return null;
     		}
     	}
 		return mapping.findForward("conv");
@@ -207,7 +216,7 @@ public class ConversationAction extends Action{
     private boolean postComment(int user1id, int user2id, String message) throws Exception {
     	Date dateLong = new Date();
 		long mills = dateLong.getTime();
-    	String query ="insert into Conversation values(default,"+user1id+","+user2id+",'"+message+"',"+mills+");";
+    	String query ="insert into Conversation values(default,"+user1id+","+user2id+",'"+message+"',"+mills+",false);";
     	System.out.println(query);
     	try{
     		if(conn != null){
@@ -224,6 +233,70 @@ public class ConversationAction extends Action{
     		}
     	}
     	return false;
+    }
+    
+    private void markAsRead(int user1id, int user2id) throws Exception {
+
+    	Connection connection = null;
+    	DbConnection dbDconnection = null;
+    	Statement statement = null;
+    	ResultSet resultSet = null;
+    	String query ="UPDATE Conversation SET isread=true where user1id="+user1id+" and user2id="+user2id+";";
+    	try{
+    		try{
+    			dbDconnection = new DbConnection();
+    			connection = (Connection)dbDconnection.getConnection();
+    		}catch(Exception ex){
+    			ex.printStackTrace();
+    		}
+    		if(connection != null){
+    			statement = connection.createStatement();
+    			int a = statement.executeUpdate(query); 
+    		}
+    	}catch(Exception ex){
+    		ex.printStackTrace();
+    	}finally{
+    		try {
+    			statement.close();
+    			closeConnection(connection);
+    		} catch (SQLException e) {
+    			e.printStackTrace();
+    		}
+    	}
+    }
+    private int getNewMessageCount(int userid) throws Exception {
+    	Connection connection = null;
+    	DbConnection dbDconnection = null;
+    	Statement statement = null;
+    	ResultSet resultSet = null;
+    	int count = 0;
+    	String query ="select count(*) as rowCount from Conversation where user2id="+userid+" and isread=false";
+    	try{
+    		try{
+    			dbDconnection = new DbConnection();
+    			connection = (Connection)dbDconnection.getConnection();
+    		}catch(Exception ex){
+    			ex.printStackTrace();
+    		}
+    		if(connection != null){
+    			statement = connection.createStatement();
+    			resultSet = statement.executeQuery(query); 
+    		}
+    		while(resultSet.next()){
+    			 count = resultSet.getInt("rowCount");
+    			 System.out.println(count);
+    		}
+    	}catch(Exception ex){
+    		ex.printStackTrace();
+    	}finally{
+    		try {
+    			statement.close();
+    			closeConnection(connection);
+    		} catch (SQLException e) {
+    			e.printStackTrace();
+    		}
+    	}
+    	return count;
     }
     private void closeConnection(Connection connection) throws Exception{
     	try{

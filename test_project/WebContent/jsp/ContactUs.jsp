@@ -54,15 +54,15 @@ $("#contact-form").on("submit", function(){
 	  <form id="contact-form" action="#" method="post" class="form-sec">
           <div class="one_third first">
             <label for="name">Name <span>*</span></label>
-            <input type="text" name="name" id="name" value="" size="22" maxlength="255" required="">
+            <input type="text" name="name" id="name" value="" size="22" maxlength="255" required style="border-color: #c5c5c5;">
           </div>
           <div class="one_third">
             <label for="email">Mail <span>*</span></label>
-            <input type="email" name="email" id="email" value="" size="22" required="">
+            <input type="email" name="email" id="email" value="" size="22" required style="border-color: #c5c5c5;">
           </div>
           <div class="block clear">
             <label for="comment">Your Comment</label>
-            <textarea name="msg" id="msg" cols="25" rows="10"></textarea>
+            <textarea name="msg" id="msg" cols="25" rows="10" style="border-color: #c5c5c5;"></textarea>
           </div>
           <div>
             <input type="submit" name="submit" value="Send">
