@@ -77,12 +77,17 @@ jQuery(document).ready(function() {
 window.onclick = function(event) {
 	if (event.target == document.getElementById('id01')) {		resetForm();	}
 }
+function resetPassword(){
+	jQuery("#id02").hide();
+	jQuery("#forgotPassword").show();
+	jQuery("#title").text("Reset Password");
+}
 	</script>
 	 <div id="id01" class="w3-modal">
 						<div class="w3-modal-content w3-card-8 w3-animate-zoom"	style="max-width: 600px">
 							<div class="w3-center">
 								<br> <span	onclick="resetForm()"	class="w3-closebtn w3-hover-red w3-container w3-padding-8 w3-display-topright"	title="Close Modal">&times;</span>
-								<h2>Login</h2>
+								<h2 id="title">Login</h2>
 							</div>
 							<div id="id02">
 								<form id="loginForm" class="w3-container">
@@ -96,6 +101,7 @@ window.onclick = function(event) {
 										<div class="w3-center">
 										<button class="w3-btn w3-orange w3-section w3-padding w3-text-white"	type="button" onclick="login()">Login</button>
 										<button	onclick="document.getElementById('id01').style.display='none'"	type="button" class="w3-btn w3-grey w3-text-white">Cancel</button>
+										<br><div style="color:blue;" onclick="resetPassword()"><a>Forgot password?</a></div>
 										</div>
 									</div>
 								</form>
@@ -107,7 +113,21 @@ window.onclick = function(event) {
 										management system</p>
 								</div>
 							</div>
+							<div id="forgotPassword" style="display:none" >
+								<form id="forgotPasswordForm" class="w3-container">
+									<div class="w3-section">
+										<div id="id022">
+											<label><b>Email</b></label> <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="username" required>
+										</div>
+										<div class="w3-center">
+										<button class="w3-btn w3-orange w3-section w3-padding w3-text-white"	type="button" onclick="">Reset Password</button>
+										<button	onclick="document.getElementById('id01').style.display='none';resetForm();"	type="button" class="w3-btn w3-grey w3-text-white">Cancel</button>
+										</div>
+									</div>
+								</form>
+							</div>
 						</div>
+						
 					</div>  
 <div class="wrapper row1" style="background-color:white;">
 <%

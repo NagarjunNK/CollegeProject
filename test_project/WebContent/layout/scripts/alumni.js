@@ -22,7 +22,16 @@ function getEventDetails(ele){
 	   });
 }
 function resetForm(){
-	document.getElementById('id01').style.display='none';	document.getElementById('id02').style.display = 'block';	document.getElementById('id03').style.display = 'none';	document.getElementById('alert').style.display='none';	jQuery("input[name='username']").val('');	jQuery("input[name='password']").val('');
+	document.getElementById('id01').style.display='none';	
+	document.getElementById('id02').style.display = 'block';	
+	document.getElementById('id03').style.display = 'none';	
+	document.getElementById('alert').style.display='none';	
+	jQuery("input[name='username']").val('');	
+	jQuery("input[name='password']").val('');
+	jQuery("#id02").show();
+	jQuery("#forgotPassword").hide();
+	jQuery("#title").text("Login");
+
 }
 
 function login() {
