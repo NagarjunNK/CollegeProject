@@ -19,7 +19,7 @@ ArrayList user = (ArrayList)request.getAttribute("user");
 if(user != null && !user.isEmpty()){
 	for(int i=0; i<user.size(); i++){
 		   HashMap row = (HashMap)user.get(i);
-		   int id = (int)row.get("id");
+		   int id = Integer.parseInt(row.get("id").toString());
 		   String name = (String)row.get("name");
 		   String role = (String)row.get("role");
 %>

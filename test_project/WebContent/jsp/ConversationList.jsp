@@ -61,7 +61,7 @@ jQuery(document).ready(function() {
 <div class="wrapper row3">
 	  <main class="hoc container clear" id="ConvSection"> 
 	  <%
-		int newMsgCount = (int)request.getAttribute("newMessageCount");
+		int newMsgCount = Integer.parseInt(request.getAttribute("newMessageCount").toString());
 		if( newMsgCount>0){
 		%>
 	  <div class="w3-panel w3-green w3-display-container">
@@ -79,7 +79,7 @@ if(userList != null && !userList.isEmpty()){
 <%
 	   for(int i=0; i<userList.size(); i++){
 		   HashMap row = (HashMap)userList.get(i);
-		   int id = (int)row.get("id");
+		   int id = Integer.parseInt(row.get("id").toString());
 		   String name = (String)row.get("username");
 		   String role = (String)row.get("role");
 %>

@@ -166,12 +166,12 @@ String role = (String)request.getSession().getAttribute("role");
 <div id="galleryDiv"></div>
 <div id="contentSection">
 <div class="flexslider" style="width:1905px;max-height:380px;">
-	<ul class="slides">  <li> <img src="images/demo/backgrounds/welcome11.jpg" style="width:1905px;max-height:380px;"/> </li> <li> <img src="images/demo/backgrounds/JAYA main logo.jpg" style="width:1905px;max-height:380px;"/> </li>   <li> <img src="images/demo/backgrounds/welcome.jpg" style="width:1905px;max-height:380px;"/> </li> </ul>
+	<ul class="slides">  <li> <img src="images/demo/backgrounds/welcome11.jpg" style="width:1905px;max-height:380px;"/> </li> <li> <img src="images/demo/backgrounds/welcome11.jpg" style="width:1905px;max-height:380px;"/> </li>   <li> <img src="images/demo/backgrounds/welcome11.jpg" style="width:1905px;max-height:380px;"/> </li> </ul>
 </div>
 <div class="wrapper bgded overlay"  style="background-color: black;">
   <div class="hoc container clear"> 
 	  <h6 class="heading">Welcome Alumni..!!</h6>
-          <p>At MKU [DCS], we belive in fostering a strong alumni network that not anly helps former students remain connected but also provide an a venue for the philanthropic spirit of successful alumni.</p>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
     	  <div class="clear"></div>  </div></div>
 <div class="wrapper row3">
 <table><tr><td width=33.33%>
@@ -193,7 +193,7 @@ String role = (String)request.getSession().getAttribute("role");
         	   for(int i=0; i<birthday.size(); i++){
         		   HashMap row = (HashMap)birthday.get(i);
         		   String name = (String)row.get("name");
-        		   int id = (int)row.get("id");
+        		   int id = Integer.parseInt(row.get("id").toString());
         		    %>
 				<li><a onclick="javascript:getAlumniDetails(this);" value="<%=id%>"><%=name %></a></li>
 				 <%      	   }
@@ -224,7 +224,7 @@ String role = (String)request.getSession().getAttribute("role");
         	   for(int i=0; i<announcement.size(); i++){
         		   HashMap row = (HashMap)announcement.get(i);
         		   String msg = (String)row.get("message");
-        		   long id = (long)row.get("id");
+        		   Long id = Long.parseLong(row.get("id").toString());
         		    %>
 				<li><%=msg %></li>
 				 <%      	   }

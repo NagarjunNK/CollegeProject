@@ -19,7 +19,7 @@ ArrayList announcement = (ArrayList)request.getAttribute("oneannouncement");
 if(announcement != null && !announcement.isEmpty()){
 	for(int i=0; i<announcement.size(); i++){
 		   HashMap row = (HashMap)announcement.get(i);
-		   long id = (long)row.get("id");
+		   int id = Integer.parseInt(row.get("id").toString());
 		   String message = (String)row.get("message");
 %>
 jQuery(document).ready(function(){

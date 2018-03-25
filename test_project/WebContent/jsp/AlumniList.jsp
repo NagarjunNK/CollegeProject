@@ -125,7 +125,7 @@
 		   if(alumnilist != null && !alumnilist.isEmpty()){
 			   for(int i=0; i<alumnilist.size(); i++){
 				   HashMap row = (HashMap)alumnilist.get(i);
-				   int id = (int)row.get("id");
+				   int id = Integer.parseInt(row.get("id").toString());
 				   String name = (String)row.get("name");
 				   String batchyear = (String)row.get("batchyear");
 				   String passoutyear = (String)row.get("passoutyear");

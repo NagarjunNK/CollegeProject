@@ -99,7 +99,7 @@
 			   for(int i=0; i<announcements.size(); i++){
 				   HashMap row = (HashMap)announcements.get(i);
 				   String message = (String)row.get("message");
-				   long id = (long)row.get("id");
+				   Long id = Long.parseLong(row.get("id").toString());
 				    %>
 				   
 			<tr>

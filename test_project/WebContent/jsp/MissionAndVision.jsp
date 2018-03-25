@@ -16,19 +16,20 @@
 <br>
 	  <h7 class="heading">Vision</h7>
 
-    <p>  The vision of the Alumni Information Management System    (AIMS) will be a dynamic, member focused organization
-and directed towards supporting the social, intellectual and spiritual needs of all present and future alumni of Department of computer science.</p>
+    <p>  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
 
 <h7 class="heading">Mission</h7>
 
- <p> The mission of the Alumni Information Management System (AIMS) is to be link between the alumni of the Department of computer science, their Alma Mater, administration, faculty and students through increased opportunities for a meaningful engagement in the activities of our institution.</p>
+ <p> Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, 
+ from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" 
+ (The Extremes of Good and Evil) by Cicero, written in 45 BC.</p>
    
-        <p>      Promoting a strong relationship between Alumnus, Department and Students.</p>
+        <p>     The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
 
-         <p>    Developing the awareness of Department's history, accomplishments, programs and offerings.</p>
+         <p>    Lorem Ipsum is not simply random text.</p>
 
-        <p>    Maintain, update and manage the Alumni records database</p>
-	  		<p>	Assist the Department with the student recruitment effort. </p>
+        <p>    Lorem Ipsum is not simply random text.</p>
+	  		<p>	Lorem Ipsum is not simply random text. </p>
   
 	   </main>
 </div>

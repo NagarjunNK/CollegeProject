@@ -105,7 +105,7 @@ function getUserDetails(ele){
 		   if(users != null && !users.isEmpty()){
 			   for(int i=0; i<users.size(); i++){
 				   HashMap row = (HashMap)users.get(i);
-				   int id = (int)row.get("id");
+				   int id = Integer.parseInt(row.get("id").toString());
 				   String name = (String)row.get("name");
 				   String role = (String)row.get("role");
 		 %>

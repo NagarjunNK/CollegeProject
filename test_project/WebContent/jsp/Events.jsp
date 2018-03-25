@@ -122,7 +122,7 @@
 		   if(events != null && !events.isEmpty()){
 			   for(int i=0; i<events.size(); i++){
 				   HashMap row = (HashMap)events.get(i);
-				   int id = (int)row.get("id");
+				   int id = Integer.parseInt(row.get("id").toString());
 				   String title = (String)row.get("title");
 				   String desc = (String)row.get("description");
 				   String place = (String)row.get("place");
